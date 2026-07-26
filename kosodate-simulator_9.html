@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>子育て費用まるわかりシミュレーター｜大学卒業までにいくらかかる？</title>
+<meta name="description" content="お子さんの年齢と進路を選ぶだけで、大学卒業までにかかる子育て費用・もらえるお金・毎月の積立目安がひと目でわかる無料シミュレーター。文部科学省の最新データをもとに計算します。">
+<meta name="theme-color" content="#eb6834">
+<meta name="robots" content="index, follow">
+<!-- SNSシェア用（OGP）。ogp.png を同じフォルダに置いています -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="まるわかり子育てマネー">
+<meta property="og:title" content="子育て費用まるわかりシミュレーター">
+<meta property="og:description" content="大学卒業までにいくらかかる？ 年齢と進路を選ぶだけで、もらえるお金や毎月の積立額まで無料でわかります。">
+<meta property="og:image" content="ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="子育て費用まるわかりシミュレーター">
+<meta name="twitter:description" content="大学卒業までにいくらかかる？ もらえるお金や毎月の積立額まで無料でわかります。">
+<meta name="twitter:image" content="ogp.png">
+<style>
+  :root{
+    --surface-1:#fcfcfb; --page:#f6f4ef; --card:#ffffff;
+    --ink:#1f1d1a; --ink-2:#6b6862; --muted:#928f88;
+    --grid:#ece9e2; --baseline:#d9d5cc; --border:rgba(20,18,14,0.09);
+    --edu:#2a78d6;      /* 教育費 (categorical slot1 blue) */
+    --edu-soft:#e5eefb;
+    --live:#eb6834;     /* 養育費 (categorical slot2 orange) */
+    --live-soft:#fdeee7;
+    --gift:#0ca30c;     /* もらえるお金 (status good) */
+    --accent:#e87ba4;   /* mom-friendly magenta accent */
+    --radius:18px;
+    font-family: system-ui,-apple-system,"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--page);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1120px;margin:0 auto;padding:28px 20px 80px;}
+  header.hero{padding:8px 4px 20px;}
+  .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--live);background:#fff;border:1px solid var(--border);padding:5px 12px;border-radius:999px;}
+  h1{font-size:clamp(24px,4vw,34px);margin:14px 0 6px;letter-spacing:-0.01em;}
+  .lead{color:var(--ink-2);font-size:15px;margin:0;max-width:640px;}
+  .layout{display:grid;grid-template-columns:360px 1fr;gap:22px;margin-top:24px;align-items:start;}
+  @media(max-width:880px){
+    .layout{grid-template-columns:1fr;}
+    .panel{position:static !important;}   /* スマホでは入力パネルを固定しない（結果への被り防止） */
+    .wrap{padding:20px 14px 64px;}
+  }
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:0 1px 2px rgba(20,18,14,.04),0 8px 24px rgba(20,18,14,.03);}
+  .card h2{font-size:15px;margin:0 0 4px;letter-spacing:.01em;}
+  .card .hint{font-size:12px;color:var(--muted);margin:0 0 14px;}
+
+  /* ---- inputs ---- */
+  .panel{position:sticky;top:18px;}
+  .child{border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;background:#fdfcfa;position:relative;}
+  .child .chead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+  .child .cname{font-weight:700;font-size:13px;display:flex;align-items:center;gap:7px;}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .del{border:none;background:none;color:var(--muted);cursor:pointer;font-size:12px;padding:2px 6px;border-radius:8px;}
+  .del:hover{background:#f0ede7;color:var(--live);}
+  .field{margin-bottom:11px;}
+  .field:last-child{margin-bottom:0;}
+  label.fl{display:block;font-size:11.5px;font-weight:600;color:var(--ink-2);margin-bottom:5px;}
+  select,input[type=range]{width:100%;}
+  select{appearance:none;background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%23928f88'/></svg>") no-repeat right 12px center;border:1px solid #dcd8cf;border-radius:10px;padding:9px 30px 9px 11px;font-size:13px;color:var(--ink);font-family:inherit;cursor:pointer;}
+  select:focus{outline:none;border-color:var(--edu);box-shadow:0 0 0 3px var(--edu-soft);}
+  .agewrap{display:flex;align-items:center;gap:10px;}
+  .agewrap input[type=range]{flex:1;accent-color:var(--live);}
+  .ageval{font-weight:700;font-size:13px;min-width:44px;text-align:right;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .addbtn{width:100%;border:1.5px dashed #d3cec3;background:#fff;color:var(--ink-2);border-radius:12px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s;}
+  .addbtn:hover{border-color:var(--live);color:var(--live);background:#fffaf7;}
+  .addbtn:disabled{opacity:.4;cursor:not-allowed;}
+  .seg{display:flex;gap:6px;margin-top:6px;}
+  .seg button{flex:1;border:1px solid #dcd8cf;background:#fff;border-radius:10px;padding:8px 6px;font-size:12px;font-weight:600;color:var(--ink-2);cursor:pointer;font-family:inherit;}
+  .seg button.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .rate{margin-bottom:10px;}
+  .rate .rl{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--ink-2);margin-bottom:3px;}
+  .rate .rl b{font-size:13px;color:var(--edu);}
+  .rate input[type=range]{accent-color:var(--edu);}
+  .fixednote{font-size:11px;color:var(--muted);background:#f6f4ef;border-radius:8px;padding:6px 9px;margin-top:2px;}
+  .resetbtn{border:none;background:none;color:var(--edu);font-size:11.5px;cursor:pointer;font-family:inherit;padding:2px 0;text-decoration:underline;}
+  .disclose{border:none;background:none;color:var(--edu);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;padding:8px 0 2px;}
+  .disclose:hover{text-decoration:underline;}
+  .rex{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5;}
+  .rex b{color:var(--live);font-weight:700;}
+  /* 1人あたり年額バンド */
+  .perchild{margin-bottom:14px;background:linear-gradient(135deg,#fff,#fff8f3);border:2px solid #ffe0cf;border-radius:16px;
+    padding:14px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .perchild .pc-ic{width:40px;height:40px;border-radius:12px;background:#fdeadf;flex:none;display:flex;align-items:center;justify-content:center;font-size:20px;}
+  .perchild .pc-main{font-size:15px;color:var(--ink-2);font-weight:600;line-height:1.5;}
+  .perchild .pc-main b{color:var(--live);font-size:23px;font-weight:800;}
+  .perchild .pc-sub{font-size:12px;color:var(--muted);margin-left:auto;text-align:right;}
+  /* 20年推移パネル */
+  .trend{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+  .trow{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;padding:11px 13px;background:#fbfaf7;border:1px solid var(--border);border-radius:12px;}
+  .trow .tt{font-size:13px;font-weight:600;}
+  .trow .tv{font-size:12.5px;color:var(--ink-2);font-variant-numeric:tabular-nums;}
+  .badge{font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;white-space:nowrap;}
+  .badge.up{background:#fdeee7;color:var(--live);}
+  .badge.flat{background:#eef1f4;color:#5b6570;}
+  /* フッター */
+  .foot{margin-top:36px;border-top:1px solid var(--border);padding-top:22px;}
+  .foot-in{max-width:820px;}
+  .foot p{font-size:11.5px;color:var(--muted);line-height:1.8;margin:0 0 8px;}
+  .foot-title{font-weight:800;color:var(--ink-2);font-size:13px;letter-spacing:.02em;}
+  .foot-src b{color:var(--ink-2);}
+  .foot-note{color:#b3b0a9;}
+
+  /* ---- results ---- */
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+  .kpi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 18px;}
+  .kpi.big{grid-column:1 / -1;background:linear-gradient(135deg,#fff, #fff7f2);}
+  .kpi .klabel{font-size:12px;color:var(--ink-2);font-weight:600;margin-bottom:4px;}
+  .kpi .kval{font-size:30px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;}
+  .kpi.big .kval{font-size:clamp(34px,6vw,46px);}
+  .kpi .kunit{font-size:15px;font-weight:700;margin-left:2px;}
+  .kpi .ksub{font-size:12px;color:var(--muted);margin-top:5px;}
+  .kval.edu{color:var(--edu);} .kval.gift{color:var(--gift);}
+
+  .chartcard{margin-top:4px;}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;}
+  .tab{border:1px solid var(--border);background:#fff;border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600;color:var(--ink-2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;}
+  .tab.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);margin:10px 2px 2px;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .sw{width:11px;height:11px;border-radius:3px;display:inline-block;}
+  #chart svg{width:100%;height:auto;display:block;}
+  .savebtn svg{flex:none;width:15px;height:15px;}
+  .tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;padding:8px 11px;border-radius:10px;font-size:12px;opacity:0;transition:opacity .1s;z-index:20;box-shadow:0 6px 20px rgba(0,0,0,.18);min-width:120px;}
+  .tip b{font-size:13px;}
+  .tip .tr{display:flex;justify-content:space-between;gap:14px;margin-top:3px;color:#e8e6df;}
+  .tip .tr i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px;font-style:normal;}
+
+  /* breakdown table */
+  table{width:100%;border-collapse:collapse;margin-top:6px;font-size:13px;}
+  th,td{text-align:right;padding:9px 8px;border-bottom:1px solid var(--grid);font-variant-numeric:tabular-nums;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--baseline);}
+  tbody tr:hover{background:#faf8f4;}
+  tfoot td{font-weight:800;border-top:2px solid var(--baseline);border-bottom:none;font-size:14px;}
+  .stage{display:inline-flex;align-items:center;gap:7px;}
+  .note{font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.7;}
+  .note b{color:var(--ink-2);}
+  /* 保存・シェア */
+  .savebar{display:flex;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap;}
+  .savebtn{display:inline-flex;align-items:center;background:var(--live);color:#fff;border:none;border-radius:12px;
+    padding:11px 18px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;
+    box-shadow:0 2px 8px rgba(235,104,52,.28);transition:.15s;}
+  .savebtn:hover{filter:brightness(1.05);box-shadow:0 4px 12px rgba(235,104,52,.34);}
+  .savebtn:active{transform:translateY(1px);}
+  .savemsg{font-size:12.5px;font-weight:600;color:var(--gift);opacity:0;transition:opacity .2s;}
+  .savemsg.show{opacity:1;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <span class="eyebrow">まるわかり子育てマネー</span>
+    <h1>子育て費用まるわかりシミュレーター</h1>
+    <p class="lead">お子さんの年齢と進路を選ぶだけで、大学卒業までにいくらかかるか・今からあといくらか・もらえるお金・毎月いくら積み立てればいいかがひと目でわかります。</p>
+    <div class="savebar">
+      <button id="saveBtn" class="savebtn" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:-2px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>この結果を保存・シェア
+      </button>
+      <span id="saveMsg" class="savemsg"></span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- ============ INPUT ============ -->
+    <div class="panel">
+      <div class="card">
+        <h2>お子さんの情報</h2>
+        <p class="hint">現在の年齢とこれからの進路を選んでください</p>
+        <div id="children"></div>
+        <button class="addbtn" id="addChild">＋ お子さんを追加</button>
+
+        <div class="field" style="margin-top:18px;">
+          <label class="fl">ふだんの生活費の水準（食費・衣類・レジャーなど）</label>
+          <div class="seg" id="lifestyle">
+            <button data-v="thrifty">節約</button>
+            <button data-v="standard" class="on">標準</button>
+            <button data-v="comfort">ゆとり</button>
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:18px;">
+          <div class="fixednote" style="background:#f1faf1;color:#3a7a3a;">実績データをもとに、将来の値上がりも含めて計算しています。</div>
+          <button class="disclose" id="toggleRates" type="button">▸ 上昇率を自分で調整する（詳細設定）</button>
+          <div id="rateDetail" style="display:none;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;">
+              <label class="fl" style="margin:0;">将来の値上がり（年間の上昇率）</label>
+              <button class="resetbtn" id="resetRates">実データに戻す</button>
+            </div>
+            <div class="rate" style="margin-top:8px;">
+              <div class="rl"><span>私立大学の授業料</span><b><span id="rvUnivPrivate">0.8</span>%</b></div>
+              <input type="range" min="0" max="3" step="0.1" value="0.8" data-rate="univPrivate">
+              <div class="rex" id="rexUnivPrivate"></div>
+            </div>
+            <div class="rate">
+              <div class="rl"><span>学校・塾など（幼〜高）</span><b><span id="rvEdu">0.7</span>%</b></div>
+              <input type="range" min="0" max="3" step="0.1" value="0.7" data-rate="edu">
+              <div class="rex" id="rexEdu"></div>
+            </div>
+            <div class="rate">
+              <div class="rl"><span>生活費（養育費）</span><b><span id="rvLiving">1.0</span>%</b></div>
+              <input type="range" min="0" max="3" step="0.1" value="1.0" data-rate="living">
+              <div class="rex" id="rexLiving"></div>
+            </div>
+            <div class="fixednote">国公立大学の授業料は過去20年ほぼ据え置き（実績）のため <b>0%固定</b> で計算しています。</div>
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:18px;">
+          <label class="fl">大学の支援制度（もらえるお金）</label>
+          <select id="supportSel">
+            <option value="none">対象外（一般世帯）</option>
+            <option value="taku">多子世帯（子3人以上を扶養）</option>
+            <option value="hikazei">住民税非課税世帯</option>
+          </select>
+          <div class="fixednote" id="supportNote">2025年から、扶養する子が3人以上の世帯は所得制限なしで大学の授業料・入学金が上限まで無償になります。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ RESULTS ============ -->
+    <div class="results">
+      <div class="kpis">
+        <div class="kpi big">
+          <div class="klabel">大学卒業までにかかる総額（お子さん全員）</div>
+          <div><span class="kval" id="kpiTotal">0</span><span class="kunit">万円</span></div>
+          <div class="ksub" id="kpiTotalSub">教育費・養育費の合計／もらえるお金を差し引いた実質負担</div>
+        </div>
+        <div class="kpi">
+          <div class="klabel">今からあと</div>
+          <div><span class="kval edu" id="kpiRemain">0</span><span class="kunit">万円</span></div>
+          <div class="ksub">これから出ていくお金</div>
+        </div>
+        <div class="kpi">
+          <div class="klabel">もらえるお金（総額）</div>
+          <div><span class="kval gift" id="kpiGift">0</span><span class="kunit">万円</span></div>
+          <div class="ksub">児童手当＋大学の支援制度</div>
+        </div>
+      </div>
+
+      <div class="perchild" id="perChild"></div>
+
+      <div class="card chartcard">
+        <h2>年齢ごとにいくらかかる？</h2>
+        <p class="hint">棒をタップ（パソコンはカーソルを合わせる）すると、その年の内訳が出ます</p>
+        <div class="tabs" id="tabs"></div>
+        <div id="chart"></div>
+        <div class="legend">
+          <span><i class="sw" style="background:var(--edu)"></i>教育費（学校・塾・習い事）</span>
+          <span><i class="sw" style="background:var(--live)"></i>養育費（食費・生活費など）</span>
+          <span><i class="sw" style="background:#d9d5cc"></i>支払い済み（過去分）</span>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px;">
+        <h2>大学費用は毎月いくら積み立てれば足りる？</h2>
+        <p class="hint">大学入学（18歳）までに、支援制度を差し引いた大学費用を用意する前提で逆算します</p>
+        <div class="rate" style="max-width:340px;">
+          <div class="rl"><span>NISA等で運用する場合の想定利回り（年）</span><b><span id="rvYield">5.0</span>%</b></div>
+          <input type="range" min="0" max="7" step="0.5" value="5" id="yieldSlider">
+        </div>
+        <div class="trend" id="saveRows" style="margin-top:12px;"></div>
+        <p class="note">大学4年分の費用（値上がり・支援制度を反映した見込み額）を、18歳になるまでに用意する前提での目安です。利回りは複利運用（毎月積立）で計算。実際の運用成果は変動し、元本保証ではありません。</p>
+      </div>
+
+      <div class="card" style="margin-top:18px;">
+        <h2>進路の段階べつ内訳</h2>
+        <p class="hint" id="tblHint">選んでいるお子さんの、生まれてから大学卒業までの内訳です</p>
+        <table id="breakdown">
+          <thead><tr><th>ステージ</th><th>教育費</th><th>養育費</th><th>もらえるお金</th><th>小計</th></tr></thead>
+          <tbody></tbody>
+          <tfoot></tfoot>
+        </table>
+        <p class="note">
+          <b>データの根拠：</b>幼稚園〜高校の教育費は文部科学省「令和5年度 子供の学習費調査」（年間学習費総額）。大学は文部科学省「令和5年度 私立大学等 学生納付金等調査」（私立の授業料・入学料・施設設備費）と国立大学の標準額を使用し、入学金・入学料は初年度のみ、授業料・施設設備費は毎年かかる形で計算しています（4年総額の目安：国公立 約242万円／私立文系 約411万円／私立理系 約542万円）。児童手当は2024年10月拡充後（0〜2歳 月1.5万円／3歳〜高校生 月1万円／第3子以降 月3万円、所得制限なし）。大学の支援は「高等教育の修学支援新制度」（2025年拡充、多子世帯は所得制限なし）と給付型奨学金の目安。高校授業料の無償化（就学支援金）は、学習費データがすでに受給後の平均額のため二重に差し引かず金額に織り込み済みです。養育費（生活費）と保育料・仕送りは一般的な目安を用いた概算です。表・グラフの金額は上記に「将来の値上がり（上昇率）」を反映した見込み額です。実際の金額はご家庭や地域により変わります。
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:18px;">
+        <h2>20年でどう変わった？（参考）</h2>
+        <p class="hint">上昇率の初期値は、この実績をもとにしています</p>
+        <div class="trend">
+          <div class="trow">
+            <div><div class="tt">国立大学の授業料</div><div class="tv">520,800円（2004年）→ 535,800円（2005年〜）</div></div>
+            <span class="badge flat">ほぼ横ばい／年0%</span>
+          </div>
+          <div class="trow">
+            <div><div class="tt">私立大学の授業料（平均）</div><div class="tv">817,952円（2004年）→ 959,205円（2023年）</div></div>
+            <span class="badge up">＋17%／年 約0.8%</span>
+          </div>
+          <div class="trow">
+            <div><div class="tt">公立小・中・高の学習費</div><div class="tv">この20年はほぼ横ばい。増えているのは主に塾・習い事と私立</div></div>
+            <span class="badge flat">ほぼ横ばい</span>
+          </div>
+        </div>
+        <p class="note">「教育費はインフレでどんどん上がる」というイメージより、実際の上がり方は費目でかなり違います。国立大学の授業料は20年据え置き、私立でも年0.8%ほど。左の上昇率スライダーで、将来の値上がりの前提を自由に変えて試算できます。</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="foot-in">
+      <p class="foot-title">まるわかり子育てマネー</p>
+      <p>本シミュレーターは、子育てにかかるお金の目安を知っていただくための情報提供ツールです。表示される金額はあくまで概算であり、実際の費用・支援額・運用成果を保証するものではありません。進学先やお住まいの地域、ご家庭の状況、制度改正により金額は変わります。教育資金・保険・投資に関する具体的なご判断は、公的機関の最新情報や専門家にご確認ください。</p>
+      <p class="foot-src"><b>出典：</b>文部科学省「令和5年度 子供の学習費調査」／文部科学省「令和5年度 私立大学等 学生納付金等調査」・国立大学授業料標準額／こども家庭庁「児童手当」（2024年10月拡充）／文部科学省「高等教育の修学支援新制度」（2025年拡充）／日本学生支援機構 給付型奨学金</p>
+      <p class="foot-note">最終更新：2026年7月時点の公表データにもとづく</p>
+    </div>
+  </footer>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+/* ===================== データ（実数・目安） ===================== */
+// 学習費総額（年間・円）文科省 令和5年度 子供の学習費調査
+const EDU = {
+  kinder: {pub:184646, pri:347338},   // 幼稚園 3-5歳
+  elem:   {pub:336265, pri:1828112},  // 小学校 6-11歳
+  junior: {pub:542475, pri:1560359},  // 中学校 12-14歳
+  high:   {pub:597752, pri:1030283},  // 高校   15-17歳
+};
+// 大学費用（円）文科省 令和5年度 私立大学等 学生納付金等調査／国立は標準額
+//  nyu=入学金・入学料（初年度のみ）, year=授業料＋施設設備費（毎年）
+const UNIV = {
+  none:     {nyu:0,      year:0},
+  national: {nyu:282000, year:535800},                 // 国公立（施設費なし）
+  arts:     {nyu:223867, year:827135+143838},          // 私立文系（授業料+施設設備費）
+  sci:      {nyu:234756, year:1162738+132956},         // 私立理系（授業料+施設設備費）
+};
+const UNIV_LABEL = {none:'進学しない', national:'国公立', arts:'私立文系', sci:'私立理系'};
+// 高等教育の修学支援新制度（2025年拡充）減免の上限（円）
+//  多子世帯（子3人以上扶養）は所得制限なしで授業料・入学金を減免
+const MENJO = {
+  national:{year:535800, nyu:282000},   // 国公立：授業料53.58万＋入学金28.2万
+  arts:    {year:700000, nyu:223867},   // 私立：授業料上限70万＋入学金（実額≦26万）
+  sci:     {year:700000, nyu:234756},
+};
+// 給付型奨学金（住民税非課税・第I区分の満額目安・年額）
+const KYUFU = {
+  national:{home:350400, away:800400},  // 国公立 自宅/自宅外
+  arts:    {home:459600, away:909600},  // 私立 自宅/自宅外
+  sci:     {home:459600, away:909600},
+};
+const SUPPORT_LABEL = {none:'対象外', taku:'多子世帯（子3人以上）', hikazei:'住民税非課税世帯'};
+// 0-2歳 保育園 年間（目安・可変幅の中央）
+const NURSERY_YEAR = 480000;
+// 出産・0歳の初期費用（一時金差引後の自己負担＋ベビー用品目安）
+const BIRTH_COST = 150000;
+// 大学期・一人暮らしの仕送り（年間目安）
+const AWAY_YEAR = 1000000;
+// 養育費（教育費以外の生活費）年間・水準別
+const LIVING = {thrifty:700000, standard:900000, comfort:1200000};
+
+/* ===================== 状態 ===================== */
+const COLORS = ['#eb6834','#2a78d6','#e87ba4','#0ca30c'];
+let lifestyle = 'standard';
+let children = [];
+let uid = 0;
+let activeTab = 'sum';
+// 費目べつ 年間上昇率(%)。実データ基準の初期値（国立大学は据え置き実績で0%固定）
+const RATE_DEFAULT = {univPrivate:0.8, edu:0.7, living:1.0};
+const RATE_NATIONAL = 0.0; // 国立大学授業料は20年据え置き
+let rates = {...RATE_DEFAULT};
+let support = 'none';   // 大学の支援制度（世帯区分）
+let yieldPct = 5.0;     // 積み立ての想定利回り（年%）
+
+function defaultChild(age){
+  return {id:++uid, age:age, care:'pub', elem:'pub', junior:'pub', high:'pub', univ:'national', away:false};
+}
+children.push(defaultChild(3));
+
+/* ===================== 計算 ===================== */
+// その時点で「扶養する子」としてカウントできるか（多子世帯の大学無償化の判定用）
+//  ・17歳以下（高校生年代まで）＝扶養
+//  ・大学在学中（18〜21歳・進学する子）＝扶養
+//  ・18歳以降で進学しない／大学卒業後＝就職・自立とみなしカウント外
+function isDependent(j, jAge){
+  if(jAge < 0) return false;
+  if(jAge <= 17) return true;
+  if(j.univ !== 'none' && jAge >= 18 && jAge <= 21) return true;
+  return false;
+}
+// 1人の子について 0〜21歳の各年 {edu, live, gift, support} を返す
+function yearlySeries(c, childIndex){
+  const rows = [];
+  for(let age=0; age<=21; age++){
+    const ahead = age - c.age;                     // 現在から何年後の支出か
+    const infl = r => ahead>0 ? Math.pow(1+r/100, ahead) : 1;  // 将来分だけ複利で値上がり
+    let eduBase=0, liveBase=LIVING[lifestyle], gift=0, eduRate=rates.edu;
+    // --- 教育費（現在価格） ---
+    if(age===0){ eduBase += BIRTH_COST; }
+    if(age>=0 && age<=2){ eduBase += NURSERY_YEAR; }                 // 保育園（未就園）
+    else if(age>=3 && age<=5){ eduBase += EDU.kinder[c.care]; }      // 幼稚園・保育園（幼児）
+    else if(age>=6 && age<=11){ eduBase += EDU.elem[c.elem]; }       // 小学校
+    else if(age>=12 && age<=14){ eduBase += EDU.junior[c.junior]; }  // 中学校
+    else if(age>=15 && age<=17){ eduBase += EDU.high[c.high]; }      // 高校
+    else if(age>=18 && age<=21){                                     // 大学
+      eduRate = (c.univ==='national') ? RATE_NATIONAL : rates.univPrivate;
+      if(c.univ!=='none'){
+        eduBase += UNIV[c.univ].year;                                // 授業料＋施設設備費（毎年）
+        if(age===18) eduBase += UNIV[c.univ].nyu;                    // 入学金・入学料は初年度のみ
+      }
+    }
+    // --- 養育費（大学で一人暮らしなら仕送りに置換） ---
+    if(age>=18 && age<=21 && c.univ!=='none' && c.away){ liveBase = AWAY_YEAR; }
+    if(age>=18 && c.univ==='none'){ liveBase = 0; }                  // 進学しない→18歳以降は集計外
+    // --- 児童手当（2024/10〜・政策で固定のため値上がりなし） ---
+    // 第3子加算(月3万)は「22歳年度末までの子」を年長順に数え、3番目以降の支給対象児が対象。
+    // 上の子が22歳を過ぎるとカウントから外れ、下の子の順位が繰り上がって3万→1万に下がる。
+    if(age<=17){
+      const t = age - c.age;                         // 現在からの経過年数
+      let older = 0;                                  // その時点で22歳以下の「上の子」の人数
+      children.forEach((j,ji)=>{
+        if(ji===childIndex) return;
+        const isOlder = (j.age > c.age) || (j.age===c.age && ji<childIndex);
+        if(isOlder && (j.age + t) <= 22) older++;
+      });
+      const rank = older + 1;                         // 自分の順位（1=第1子）
+      if(rank>=3)      gift = 30000*12;               // 第3子以降
+      else if(age<=2)  gift = 15000*12;
+      else             gift = 10000*12;
+    }
+    // --- 大学の支援制度（修学支援新制度・給付奨学金）を大学期に差し引き ---
+    let sup = 0;
+    if(support!=='none' && c.univ!=='none' && age>=18 && age<=21){
+      let eligible = true;
+      if(support==='taku'){
+        // 多子世帯の無償化は「扶養する子が3人以上」の年のみ適用。
+        // 上の子が大学卒業（22歳〜）や高卒就職で扶養を外れて3人未満になると対象外。
+        const t = age - c.age;
+        let dep = 0;
+        children.forEach(j=>{ if(isDependent(j, j.age + t)) dep++; });
+        eligible = (dep >= 3);
+      }
+      if(eligible){
+        const m = MENJO[c.univ];
+        sup += m.year;                                // 授業料減免（毎年）
+        if(age===18) sup += m.nyu;                    // 入学金減免（初年度のみ）
+        if(support==='hikazei'){                      // 非課税世帯は給付奨学金も
+          sup += KYUFU[c.univ][c.away?'away':'home'];
+        }
+      }
+    }
+    // 将来の値上がりを反映（費目べつの率）
+    const edu  = Math.round(eduBase  * infl(eduRate));
+    const live = Math.round(liveBase * infl(rates.living));
+    rows.push({age, edu, live, gift, support:sup, eduN:Math.round(eduBase), liveN:Math.round(liveBase)});
+  }
+  return rows;
+}
+
+// ステージ別に集約
+function stageBreakdown(c, childIndex){
+  const s = yearlySeries(c, childIndex);
+  const sum = (a,b,k)=> s.slice(a,b+1).reduce((t,r)=>t+r[k],0);
+  const stages = [
+    {key:'baby',  name:'未就園（0〜2歳）',  a:0,  b:2},
+    {key:'kinder',name:'幼稚園（3〜5歳）',  a:3,  b:5},
+    {key:'elem',  name:'小学校（6〜11歳）', a:6,  b:11},
+    {key:'junior',name:'中学校（12〜14歳）',a:12, b:14},
+    {key:'high',  name:'高校（15〜17歳）',  a:15, b:17},
+    {key:'univ',  name:'大学（18〜21歳）',  a:18, b:21},
+  ];
+  return stages.map(st=>({
+    ...st,
+    edu:sum(st.a,st.b,'edu'),
+    live:sum(st.a,st.b,'live'),
+    gift:sum(st.a,st.b,'gift'),
+    support:sum(st.a,st.b,'support'),
+  }));
+}
+
+const yen2man = v => Math.round(v/10000);
+const fmt = v => v.toLocaleString('ja-JP');
+
+/* ===================== KPI ===================== */
+function updateKPIs(){
+  let total=0, totalN=0, remain=0, gift=0;
+  children.forEach((c,i)=>{
+    const s = yearlySeries(c,i);
+    s.forEach(r=>{
+      total  += r.edu  + r.live  - r.gift - r.support;
+      totalN += r.eduN + r.liveN - r.gift - r.support;
+      gift   += r.gift + r.support;
+      if(r.age >= c.age) remain += r.edu + r.live - r.gift - r.support;
+    });
+  });
+  const uplift = total - totalN;
+  document.getElementById('kpiTotal').textContent  = fmt(yen2man(total));
+  document.getElementById('kpiRemain').textContent = fmt(yen2man(remain));
+  document.getElementById('kpiGift').textContent   = fmt(yen2man(gift));
+  document.getElementById('kpiTotalSub').innerHTML =
+    `将来の値上がりをふまえた見込み額　<span style="color:var(--muted)">|　現在の物価なら ${fmt(yen2man(totalN))}万円 ＋ 値上がり分 <b style="color:var(--live)">+${fmt(yen2man(uplift))}万円</b></span>`;
+}
+
+/* ===================== グラフ（積み上げ棒 SVG） ===================== */
+function drawChart(){
+  const chart = document.getElementById('chart');
+  // 各年を「過去（支払い済み）」と「今後」に分ける（過去はグレー表示）
+  let series;
+  if(activeTab==='sum'){
+    const base = Array.from({length:22},(_,age)=>({age,eduTot:0,liveTot:0,eduF:0,liveF:0,pastT:0,gift:0,support:0}));
+    children.forEach((c,i)=> yearlySeries(c,i).forEach(r=>{
+      const b=base[r.age];
+      b.eduTot+=r.edu; b.liveTot+=r.live; b.gift+=r.gift; b.support+=r.support;
+      if(r.age < c.age){ b.pastT += r.edu + r.live; }      // このお子さんには支払い済み
+      else { b.eduF += r.edu; b.liveF += r.live; }          // 今後かかる
+    }));
+    series = base;
+  } else {
+    const idx = children.findIndex(c=>c.id===activeTab);
+    const c = children[idx];
+    series = yearlySeries(c, idx).map(r=>{
+      const past = r.age < c.age;
+      return {age:r.age, gift:r.gift, support:r.support, eduTot:r.edu, liveTot:r.live,
+        pastT: past ? r.edu+r.live : 0, eduF: past?0:r.edu, liveF: past?0:r.live};
+    });
+  }
+
+  // スマホでは縦長のviewBoxにして棒を見やすく
+  const mobile = window.innerWidth < 620;
+  const W = mobile?420:760, H = mobile?360:300;
+  const padL=44, padR=14, padT=26, padB=40;
+  const plotW=W-padL-padR, plotH=H-padT-padB;
+  const n=series.length;
+  const maxV = Math.max(1, ...series.map(r=>r.pastT+r.liveF+r.eduF));
+  // 目盛り（万円）
+  const niceMax = Math.ceil(maxV/500000)*500000 || 500000;
+  const ticks=4;
+  const barW = plotW/n*0.64, gap=plotW/n;
+  const y = v => padT+plotH - (v/niceMax)*plotH;
+
+  let g = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="年齢別の子育て費用">`;
+  // grid + y labels
+  for(let t=0;t<=ticks;t++){
+    const val=niceMax/ticks*t, yy=y(val);
+    g+=`<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}" stroke="var(--grid)" stroke-width="1"/>`;
+    g+=`<text x="${padL-8}" y="${yy+4}" text-anchor="end" font-size="10.5" fill="var(--muted)">${yen2man(val)}</text>`;
+  }
+  g+=`<text x="${padL-8}" y="12" text-anchor="end" font-size="10" fill="var(--muted)">（万円）</text>`;
+  // bars（下から：グレー＝過去 → 養育費 → 教育費）
+  series.forEach((r,i)=>{
+    const cx=padL+gap*i+(gap-barW)/2;
+    let yCur=padT+plotH;
+    const seg=(val,color)=>{
+      if(val<=0) return;
+      const hpx=(val/niceMax)*plotH;
+      g+=`<rect x="${cx}" y="${yCur-hpx}" width="${barW}" height="${Math.max(0,hpx-2)}" fill="${color}" rx="3" class="bar"/>`;
+      yCur-=hpx;
+    };
+    seg(r.pastT, '#d9d5cc');      // 過去（支払い済み）＝グレー
+    seg(r.liveF, 'var(--live)');  // 今後の養育費
+    seg(r.eduF,  'var(--edu)');   // 今後の教育費
+    // 透明ヒット領域
+    g+=`<rect x="${padL+gap*i}" y="${padT}" width="${gap}" height="${plotH}" fill="transparent" data-hit="${i}"/>`;
+    // x labels（偶数歳）
+    if(r.age%2===0){
+      g+=`<text x="${cx+barW/2}" y="${H-padB+16}" text-anchor="middle" font-size="10" fill="var(--muted)">${r.age}</text>`;
+    }
+  });
+  g+=`<text x="${W-padR}" y="${H-6}" text-anchor="end" font-size="10.5" fill="var(--muted)">お子さんの年齢（歳）</text>`;
+  g+=`</svg>`;
+  chart.innerHTML=g;
+
+  // hover / tap（PCはマウス、スマホはタップで内訳を表示）
+  const tip=document.getElementById('tip');
+  let tipTimer=null;
+  function showTip(i, cx, cy){
+    const r=series[i]; if(!r) return;
+    const pastLine = r.pastT>0 ? `<div class="tr" style="color:#b3b0a9"><span><i style="background:#d9d5cc"></i>支払い済み</span><span>${fmt(yen2man(r.pastT))}万</span></div>` : '';
+    tip.innerHTML=`<b>${r.age}歳</b>
+      <div class="tr"><span><i style="background:var(--edu)"></i>教育費</span><span>${fmt(yen2man(r.eduTot))}万</span></div>
+      <div class="tr"><span><i style="background:var(--live)"></i>養育費</span><span>${fmt(yen2man(r.liveTot))}万</span></div>
+      <div class="tr"><span><i style="background:var(--gift)"></i>もらえる</span><span>-${fmt(yen2man(r.gift+(r.support||0)))}万</span></div>
+      ${pastLine}`;
+    tip.style.opacity=1;
+    const tw=150;
+    tip.style.left=Math.max(8, Math.min(cx+14, window.innerWidth-tw))+'px';
+    tip.style.top=Math.max(8, cy-70)+'px';
+  }
+  const hideTip=()=>{tip.style.opacity=0;};
+  chart.querySelectorAll('[data-hit]').forEach(h=>{
+    const i=+h.dataset.hit;
+    h.addEventListener('mousemove',e=>showTip(i, e.clientX, e.clientY));
+    h.addEventListener('mouseleave',hideTip);
+    h.addEventListener('touchstart',e=>{
+      const t=e.touches[0]; showTip(i, t.clientX, t.clientY);
+      clearTimeout(tipTimer); tipTimer=setTimeout(hideTip,2800);
+    },{passive:true});
+  });
+}
+// スクロールしたらタップで出た内訳は消す
+window.addEventListener('scroll',()=>{const t=document.getElementById('tip'); if(t)t.style.opacity=0;},{passive:true});
+// 画面幅が変わったら（回転など）グラフを描き直す
+let _resizeT; window.addEventListener('resize',()=>{clearTimeout(_resizeT); _resizeT=setTimeout(()=>drawChart(),160);});
+
+/* ===================== 内訳テーブル ===================== */
+function drawTable(){
+  let c, idx;
+  const tb=document.querySelector('#breakdown tbody');
+  const tf=document.querySelector('#breakdown tfoot');
+  const hint=document.getElementById('tblHint');
+  let rows;
+  if(activeTab==='sum'){
+    hint.textContent='お子さん全員を合計した、段階べつの内訳です';
+    // 合算
+    const agg={};
+    children.forEach((ch,i)=>stageBreakdown(ch,i).forEach(st=>{
+      if(!agg[st.key]) agg[st.key]={name:st.name,edu:0,live:0,gift:0,support:0};
+      agg[st.key].edu+=st.edu; agg[st.key].live+=st.live; agg[st.key].gift+=st.gift; agg[st.key].support+=st.support;
+    }));
+    rows=Object.values(agg);
+  } else {
+    idx=children.findIndex(x=>x.id===activeTab); c=children[idx];
+    hint.textContent=`お子さん${idx+1}の、生まれてから大学卒業までの内訳です`;
+    rows=stageBreakdown(c,idx);
+  }
+  let tot={edu:0,live:0,gift:0,support:0};
+  tb.innerHTML = rows.map(st=>{
+    const moraeru=st.gift+st.support;
+    const sub=st.edu+st.live-moraeru;
+    tot.edu+=st.edu; tot.live+=st.live; tot.gift+=st.gift; tot.support+=st.support;
+    return `<tr>
+      <td><span class="stage">${st.name}</span></td>
+      <td>${fmt(yen2man(st.edu))}</td>
+      <td>${fmt(yen2man(st.live))}</td>
+      <td style="color:var(--gift)">${moraeru?'-'+fmt(yen2man(moraeru)):'0'}</td>
+      <td><b>${fmt(yen2man(sub))}</b></td>
+    </tr>`;
+  }).join('');
+  const totMoraeru=tot.gift+tot.support;
+  const grand=tot.edu+tot.live-totMoraeru;
+  tf.innerHTML=`<tr>
+    <td>合計</td>
+    <td>${fmt(yen2man(tot.edu))}</td>
+    <td>${fmt(yen2man(tot.live))}</td>
+    <td style="color:var(--gift)">-${fmt(yen2man(totMoraeru))}</td>
+    <td>${fmt(yen2man(grand))} 万円</td>
+  </tr>`;
+}
+
+/* ===================== 積み立て逆算 ===================== */
+function drawSavings(){
+  const box=document.getElementById('saveRows');
+  const i=yieldPct/100/12;                                   // 月利
+  // きょうだいで支援額が変わる理由（バグに見えないよう明記）
+  let html = children.length>=2
+    ? `<div style="background:#fff8ef;border:1px solid #ffe0cf;border-radius:12px;padding:12px 14px;margin-bottom:4px;font-size:12.5px;color:#8a6a4a;line-height:1.7;">
+        <b style="color:var(--orange-d,#e2542a)">お子さんごとに支援額が違うのはバグではありません。</b>
+        児童手当の第3子加算や大学無償化（多子世帯）は「扶養する子が3人以上」の期間だけが対象で、上のお子さんが大学卒業・就職などで扶養から外れると、下のお子さんは対象から外れます。そのため下のお子さんほど支援が少なくなり、必要な積立額が増えます。</div>`
+    : '';
+  children.forEach((c,idx)=>{
+    if(c.univ==='none'){
+      html+=`<div class="trow"><div><div class="tt">お子さん${idx+1}（${c.age}歳）</div>
+        <div class="tv">大学に進学しない設定です</div></div><span class="badge flat">対象外</span></div>`;
+      return;
+    }
+    // 大学期(18-21)：大学費用（値上がり反映）と 支援制度の差し引き
+    const s=yearlySeries(c,idx);
+    let gross=0, supUsed=0;
+    s.forEach(r=>{ if(r.age>=18 && r.age<=21){ gross += r.edu; supUsed += Math.min(r.edu, r.support); } });
+    const target = Math.max(0, gross - supUsed);              // 自分で用意する分（積み立てる額）
+    const months=Math.max(0,(18-c.age))*12;
+    const yrs=Math.floor(months/12), mo=months%12;
+    // 大学費用 − 支援 = 自分で用意する分 の内訳行
+    const breakdown = supUsed>0
+      ? `大学費用 ${fmt(yen2man(gross))}万 − 支援 <b style="color:var(--gift)">${fmt(yen2man(supUsed))}万</b> = 自分で用意する分 <b>${fmt(yen2man(target))}万</b>`
+      : `大学費用（自分で用意する分）<b>${fmt(yen2man(target))}万円</b>`;
+
+    // 支援制度で大学費用がまかなえる場合（積み立て不要）
+    if(target<=5000){
+      html+=`<div class="trow" style="grid-template-columns:1fr;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;">
+          <div class="tt">お子さん${idx+1}（${c.age}歳・${UNIV_LABEL[c.univ]}）</div>
+          <span class="badge" style="background:#e6f6e6;color:#0ca30c;">積み立て不要</span>
+        </div>
+        <div class="tv" style="margin-top:6px;">${breakdown}</div>
+        <div style="margin-top:9px;background:#f1faf1;border:1px solid var(--border);border-radius:10px;padding:11px 13px;font-size:12.5px;color:#0a7a0a;line-height:1.6;">
+          支援制度で大学の授業料・入学金がまかなえる見込みです。教育資金としての積み立ては<b>不要</b>です（生活費や仕送りは別途ご準備ください）。
+        </div>
+      </div>`;
+      return;
+    }
+    if(months<=0){
+      html+=`<div class="trow" style="grid-template-columns:1fr;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;">
+          <div class="tt">お子さん${idx+1}（${c.age}歳・${UNIV_LABEL[c.univ]}）</div>
+          <span class="badge up">積立期間は終了</span>
+        </div>
+        <div class="tv" style="margin-top:6px;">${breakdown} ／ すでに大学期です</div></div>`;
+      return;
+    }
+    const monthly0 = target/months;                          // 利回り0%
+    // 毎月積立の複利：FV = P*((1+i)^N -1)/i  → P = FV*i/((1+i)^N -1)
+    const monthlyY = i>0 ? target*i/(Math.pow(1+i,months)-1) : monthly0;
+    html+=`<div class="trow" style="grid-template-columns:1fr;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;">
+        <div class="tt">お子さん${idx+1}（${c.age}歳・${UNIV_LABEL[c.univ]}）</div>
+        <div class="tv">あと${yrs}年${mo>0?mo+'ヶ月':''}</div>
+      </div>
+      <div class="tv" style="margin-top:5px;">${breakdown}</div>
+      <div style="display:flex;gap:10px;margin-top:9px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:120px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:9px 12px;">
+          <div style="font-size:11px;color:var(--muted);">貯金だけの場合</div>
+          <div style="font-size:22px;font-weight:800;">月 ${fmt(Math.round(monthly0/1000)*1000)}<span style="font-size:13px;font-weight:700;">円</span></div>
+        </div>
+        <div style="flex:1;min-width:120px;background:#eef5fd;border:1px solid var(--border);border-radius:10px;padding:9px 12px;">
+          <div style="font-size:11px;color:var(--edu);font-weight:600;">NISA等で運用（年${yieldPct.toFixed(1)}%）</div>
+          <div style="font-size:22px;font-weight:800;color:var(--edu);">月 ${fmt(Math.round(monthlyY/1000)*1000)}<span style="font-size:13px;font-weight:700;">円</span></div>
+        </div>
+      </div>
+    </div>`;
+  });
+  box.innerHTML=html;
+}
+
+/* ===================== タブ ===================== */
+function drawTabs(){
+  const t=document.getElementById('tabs');
+  let h=`<button class="tab ${activeTab==='sum'?'on':''}" data-t="sum">世帯合計</button>`;
+  children.forEach((c,i)=>{
+    h+=`<button class="tab ${activeTab===c.id?'on':''}" data-t="${c.id}">
+        <span class="dot" style="background:${COLORS[i%COLORS.length]}"></span>お子さん${i+1}（${c.age}歳）</button>`;
+  });
+  t.innerHTML=h;
+  t.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    activeTab = b.dataset.t==='sum'?'sum':+b.dataset.t;
+    renderAll();
+  });
+}
+
+/* ===================== 入力UI ===================== */
+function drawChildren(){
+  const box=document.getElementById('children');
+  box.innerHTML='';
+  children.forEach((c,i)=>{
+    const el=document.createElement('div');
+    el.className='child';
+    el.innerHTML=`
+      <div class="chead">
+        <span class="cname"><span class="dot" style="background:${COLORS[i%COLORS.length]}"></span>お子さん${i+1}</span>
+        ${children.length>1?`<button class="del" data-del="${c.id}">削除</button>`:''}
+      </div>
+      <div class="field">
+        <label class="fl">現在の年齢：<b>${c.age}歳</b></label>
+        <div class="agewrap">
+          <input type="range" min="0" max="18" value="${c.age}" data-age="${c.id}">
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label class="fl">幼稚園・保育園</label>
+          <select data-f="care" data-id="${c.id}">
+            <option value="pub" ${c.care==='pub'?'selected':''}>公立</option>
+            <option value="pri" ${c.care==='pri'?'selected':''}>私立</option>
+          </select></div>
+        <div class="field"><label class="fl">小学校</label>
+          <select data-f="elem" data-id="${c.id}">
+            <option value="pub" ${c.elem==='pub'?'selected':''}>公立</option>
+            <option value="pri" ${c.elem==='pri'?'selected':''}>私立</option>
+          </select></div>
+        <div class="field"><label class="fl">中学校</label>
+          <select data-f="junior" data-id="${c.id}">
+            <option value="pub" ${c.junior==='pub'?'selected':''}>公立</option>
+            <option value="pri" ${c.junior==='pri'?'selected':''}>私立</option>
+          </select></div>
+        <div class="field"><label class="fl">高校</label>
+          <select data-f="high" data-id="${c.id}">
+            <option value="pub" ${c.high==='pub'?'selected':''}>公立</option>
+            <option value="pri" ${c.high==='pri'?'selected':''}>私立</option>
+          </select></div>
+      </div>
+      <div class="field"><label class="fl">大学</label>
+        <select data-f="univ" data-id="${c.id}">
+          <option value="national" ${c.univ==='national'?'selected':''}>国公立</option>
+          <option value="arts" ${c.univ==='arts'?'selected':''}>私立文系</option>
+          <option value="sci" ${c.univ==='sci'?'selected':''}>私立理系</option>
+          <option value="none" ${c.univ==='none'?'selected':''}>進学しない</option>
+        </select></div>
+      <div class="field" style="${c.univ==='none'?'display:none':''}">
+        <label class="fl">大学で一人暮らし（仕送り）</label>
+        <div class="seg">
+          <button data-away="${c.id}" data-v="0" class="${!c.away?'on':''}">自宅から</button>
+          <button data-away="${c.id}" data-v="1" class="${c.away?'on':''}">一人暮らし</button>
+        </div>
+      </div>`;
+    box.appendChild(el);
+  });
+  document.getElementById('addChild').disabled = children.length>=4;
+
+  // events
+  box.querySelectorAll('[data-age]').forEach(r=>r.oninput=e=>{
+    const c=children.find(x=>x.id==r.dataset.age); c.age=+e.target.value;
+    r.closest('.child').querySelector('.fl b').textContent=c.age+'歳';
+    renderAll(false);
+  });
+  box.querySelectorAll('select[data-f]').forEach(s=>s.onchange=()=>{
+    const c=children.find(x=>x.id==s.dataset.id); c[s.dataset.f]=s.value; renderAll();
+  });
+  box.querySelectorAll('[data-away]').forEach(b=>b.onclick=()=>{
+    const c=children.find(x=>x.id==b.dataset.away); c.away=b.dataset.v==='1'; renderAll();
+  });
+  box.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{
+    children=children.filter(x=>x.id!=b.dataset.del);
+    if(activeTab!=='sum' && !children.find(x=>x.id===activeTab)) activeTab='sum';
+    renderAll();
+  });
+}
+
+/* ===================== 1人あたり年額 ===================== */
+function drawPerChild(){
+  const box=document.getElementById('perChild');
+  if(!box) return;
+  const grossOf=(c,i)=>{ let g=0; yearlySeries(c,i).forEach(r=>g+=r.edu+r.live); return g; };
+  const icon=`<div class="pc-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ee6b3b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="4"/><path d="M5.5 21v-1.5a6.5 6.5 0 0 1 13 0V21"/></svg></div>`;
+  if(activeTab==='sum'){
+    const total=children.reduce((s,c,i)=>s+grossOf(c,i),0);
+    const cnt=children.length, per=total/cnt, perYear=per/22;
+    box.innerHTML=`${icon}
+      <div class="pc-main">お子さん1人あたり <b>年 約${fmt(yen2man(perYear))}万円</b> かかります</div>
+      <div class="pc-sub">0〜22歳の平均（教育費＋養育費）<br>1人あたり総額 約${fmt(yen2man(per))}万円${cnt>1?`　×${cnt}人`:''}</div>`;
+  } else {
+    const idx=children.findIndex(c=>c.id===activeTab), c=children[idx];
+    const g=grossOf(c,idx), perYear=g/22;
+    box.innerHTML=`${icon}
+      <div class="pc-main">お子さん${idx+1}は <b>年 約${fmt(yen2man(perYear))}万円</b> かかります</div>
+      <div class="pc-sub">0〜22歳の平均（教育費＋養育費）<br>総額 約${fmt(yen2man(g))}万円</div>`;
+  }
+}
+
+/* ===================== レンダー ===================== */
+function renderAll(rebuildInputs=true){
+  if(rebuildInputs) drawChildren();
+  drawTabs(); updateKPIs(); drawPerChild(); drawChart(); drawTable(); drawSavings();
+}
+
+document.getElementById('addChild').onclick=()=>{
+  if(children.length>=4) return;
+  children.push(defaultChild(0)); renderAll();
+};
+document.querySelectorAll('#lifestyle button').forEach(b=>b.onclick=()=>{
+  lifestyle=b.dataset.v;
+  document.querySelectorAll('#lifestyle button').forEach(x=>x.classList.toggle('on',x===b));
+  renderAll(false);
+});
+
+// 上昇率スライダー
+const rateLabel = {univPrivate:'rvUnivPrivate', edu:'rvEdu', living:'rvLiving'};
+// 円換算の例（今の代表的な金額 → 年数後）
+const RATE_EX = {
+  univPrivate:{id:'rexUnivPrivate', base:970973, years:15, name:'私立大の授業料＋施設費'},
+  edu:        {id:'rexEdu',        base:542475, years:10, name:'中学の年間学習費'},
+  living:     {id:'rexLiving',     base:900000, years:15, name:'年間の生活費'},
+};
+function updateRateExamples(){
+  for(const k in RATE_EX){
+    const ex=RATE_EX[k], el=document.getElementById(ex.id);
+    if(!el) continue;
+    const future = ex.base*Math.pow(1+rates[k]/100, ex.years);
+    el.innerHTML = `例）${ex.name} 今 約${fmt(yen2man(ex.base))}万円 → ${ex.years}年後 <b>約${fmt(yen2man(future))}万円</b>`;
+  }
+}
+function syncRateUI(){
+  for(const k in rateLabel){
+    document.getElementById(rateLabel[k]).textContent = rates[k].toFixed(1);
+    const sl = document.querySelector(`input[data-rate="${k}"]`);
+    if(sl) sl.value = rates[k];
+  }
+  updateRateExamples();
+}
+document.querySelectorAll('input[data-rate]').forEach(sl=>sl.oninput=()=>{
+  rates[sl.dataset.rate] = parseFloat(sl.value);
+  document.getElementById(rateLabel[sl.dataset.rate]).textContent = parseFloat(sl.value).toFixed(1);
+  updateRateExamples();
+  renderAll(false);
+});
+document.getElementById('resetRates').onclick=()=>{
+  rates = {...RATE_DEFAULT}; syncRateUI(); renderAll(false);
+};
+// 詳細設定（上昇率）の開閉
+document.getElementById('toggleRates').onclick=function(){
+  const d=document.getElementById('rateDetail');
+  const open = getComputedStyle(d).display==='none';
+  d.style.display = open?'block':'none';
+  this.textContent = open ? '▾ 詳細設定を閉じる' : '▸ 上昇率を自分で調整する（詳細設定）';
+  if(open) updateRateExamples();
+};
+
+// 大学の支援制度
+const supportNotes = {
+  none:'一般世帯（支援なし）で計算します。',
+  taku:'2025年から、扶養する子が3人以上の世帯は所得制限なしで大学の授業料・入学金が上限まで無償になります（授業料：国公立53.6万・私立70万/年）。ただし上の子が大学卒業・就職などで扶養を外れ、扶養する子が3人未満になると下の子は対象外になります（本ツールもその年ごとに自動判定します）。',
+  hikazei:'住民税非課税世帯は授業料・入学金の全額免除に加えて、返済不要の給付型奨学金（年約35〜91万円）も受け取れます。'
+};
+document.getElementById('supportSel').onchange=e=>{
+  support=e.target.value;
+  document.getElementById('supportNote').innerHTML=supportNotes[support];
+  renderAll(false);
+};
+// 積み立ての利回り
+document.getElementById('yieldSlider').oninput=e=>{
+  yieldPct=parseFloat(e.target.value);
+  document.getElementById('rvYield').textContent=yieldPct.toFixed(1);
+  drawSavings();
+};
+
+/* ===================== 保存・シェア ===================== */
+const STORE_KEY='kosodate_state_v1';
+function encodeState(){
+  const st={
+    ls:lifestyle, sp:support, y:yieldPct,
+    r:[rates.univPrivate, rates.edu, rates.living],
+    c:children.map(c=>[c.age, c.care, c.elem, c.junior, c.high, c.univ, c.away?1:0])
+  };
+  return btoa(unescape(encodeURIComponent(JSON.stringify(st))));
+}
+function applyState(str){
+  const st=JSON.parse(decodeURIComponent(escape(atob(str))));
+  if(!st||!Array.isArray(st.c)||!st.c.length) throw new Error('empty');
+  lifestyle=st.ls||'standard';
+  support=st.sp||'none';
+  yieldPct=(typeof st.y==='number')?st.y:5.0;
+  rates={univPrivate:st.r[0], edu:st.r[1], living:st.r[2]};
+  uid=0;
+  children=st.c.map(a=>({id:++uid, age:a[0], care:a[1], elem:a[2], junior:a[3], high:a[4], univ:a[5], away:!!a[6]}));
+  activeTab='sum';
+}
+// 復元後、固定コントロール（生活費・上昇率・支援・利回り）をUIに反映
+function syncControls(){
+  document.querySelectorAll('#lifestyle button').forEach(x=>x.classList.toggle('on', x.dataset.v===lifestyle));
+  syncRateUI();
+  const ss=document.getElementById('supportSel'); ss.value=support;
+  document.getElementById('supportNote').innerHTML=supportNotes[support]||supportNotes.none;
+  document.getElementById('yieldSlider').value=yieldPct;
+  document.getElementById('rvYield').textContent=yieldPct.toFixed(1);
+}
+function saveToStorage(){ try{ localStorage.setItem(STORE_KEY, encodeState()); }catch(e){} }
+
+// 保存・シェアボタン：URLに状態を入れてコピー＋端末にも保存
+document.getElementById('saveBtn').onclick=async()=>{
+  const code=encodeState();
+  const url=location.origin+location.pathname+'#s='+code;
+  try{ history.replaceState(null,'', '#s='+code); }catch(e){}
+  saveToStorage();
+  let copied=false;
+  try{ await navigator.clipboard.writeText(url); copied=true; }
+  catch(e){
+    try{ const ta=document.createElement('textarea'); ta.value=url; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select(); copied=document.execCommand('copy'); document.body.removeChild(ta);
+    }catch(_){}
+  }
+  const msg=document.getElementById('saveMsg');
+  msg.textContent = copied ? '✓ リンクをコピーしました（ブックマークや共有に使えます）' : '✓ 保存しました（URLをブックマークしてください）';
+  msg.classList.add('show');
+  clearTimeout(window._saveMsgT); window._saveMsgT=setTimeout(()=>msg.classList.remove('show'), 3500);
+};
+
+// 起動時：URL（#s=）→ 端末保存 の順で状態を復元
+(function restore(){
+  const m=location.hash.match(/#s=(.+)$/);
+  try{
+    if(m){ applyState(decodeURIComponent(m[1])); syncControls(); return; }
+    const saved=localStorage.getItem(STORE_KEY);
+    if(saved){ applyState(saved); syncControls(); }
+  }catch(e){ /* 壊れていたら初期状態のまま */ }
+})();
+
+// 入力が変わるたびに端末へ自動保存（次回アクセス時に復元）
+const _origRender=renderAll;
+renderAll=function(rebuild=true){ _origRender(rebuild); saveToStorage(); };
+
+updateRateExamples();
+renderAll();
+</script>
+</body>
+</html>
