@@ -3,412 +3,672 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>今はじめる資産形成｜無料・30秒 不動産投資診断</title>
+<title>不動産比較ラボ｜公務員・看護師のための不動産投資 無料比較面談</title>
+<meta name="description" content="公務員・看護師の方向けに、不動産投資会社を最大3社まで無料で比較できる面談サービス。話を聞くだけ・オンライン面談もOK。運営：株式会社IK">
+<meta property="og:title" content="不動産比較ラボ｜公務員・看護師のための不動産投資 無料比較面談">
+<meta property="og:description" content="不動産投資会社を最大3社まで無料で比較。話を聞くだけでもOK。">
+<meta property="og:type" content="website">
+<script src="config.js"></script>
 <style>
   :root{
-    --navy:#0e1b33;
-    --navy2:#16274a;
-    --gold:#2f7bf0;
-    --gold-soft:#9cc2ff;
-    --accent:#38bdf8;
-    --danger:#e2574c;
-    --ink:#1a2233;
-    --muted:#6b7688;
-    --bg:#f6f8fb;
-    --line:#e6eaf1;
-    --white:#ffffff;
-    --radius:16px;
-    --shadow:0 12px 40px rgba(14,27,51,.12);
+    --navy:#0e1b33;--navy2:#16274a;--blue:#2f7bf0;--blue-soft:#9cc2ff;--accent:#38bdf8;
+    --ink:#1a2233;--muted:#6b7688;--bg:#f6f8fb;--line:#e6eaf1;--white:#fff;--danger:#e2574c;
+    --radius:16px;--shadow:0 12px 40px rgba(14,27,51,.12);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
     font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Meiryo,sans-serif;
-    color:var(--ink);background:var(--bg);line-height:1.75;
-    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    color:var(--ink);background:var(--bg);line-height:1.75;-webkit-font-smoothing:antialiased;padding-bottom:72px;
   }
   .wrap{max-width:560px;margin:0 auto;padding:0 20px}
-  .en{font-family:"Georgia",serif;letter-spacing:.08em}
+  a{color:var(--blue)}
 
-  /* ===== SCROLL 1 : HERO ===== */
-  .hero{
-    position:relative;overflow:hidden;color:#fff;
-    background:
-      radial-gradient(1200px 500px at 80% -10%,rgba(47,123,240,.35),transparent 60%),
-      linear-gradient(160deg,#0b1730 0%,#132b52 40%,#16274a 100%);
-    background-color:#0e1b33;
-    padding:56px 0 44px;
-  }
-  .hero::after{
-    content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg,transparent 60%,rgba(14,27,51,.6) 100%);
-    pointer-events:none;
-  }
-  .hero .wrap{position:relative;z-index:2}
-  .brand{display:flex;align-items:center;gap:9px;margin-bottom:26px}
-  .brand .mark{
-    width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;
-    font-family:"Georgia",serif;font-weight:700;font-size:14px;color:#0b1730;letter-spacing:.02em;
-    background:linear-gradient(135deg,#9cc2ff,#2f7bf0);box-shadow:0 4px 14px rgba(47,123,240,.5);
-  }
-  .brand .name{font-size:15px;font-weight:700;color:#fff;letter-spacing:.04em}
-  .brand .name span{color:var(--gold-soft)}
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:8px;
-    font-size:12px;letter-spacing:.14em;color:var(--gold-soft);
-    border:1px solid rgba(156,194,255,.4);border-radius:999px;
-    padding:6px 14px;margin-bottom:22px;font-weight:600;
-  }
-  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
-  h1.lead{
-    font-size:30px;line-height:1.42;font-weight:800;letter-spacing:.01em;margin-bottom:18px;
-  }
-  h1.lead .hl{
-    color:#fff;background:linear-gradient(transparent 62%,rgba(226,87,76,.55) 62%);
-    padding:0 2px;
-  }
-  h1.lead .gold{color:var(--gold-soft)}
-  .sub{font-size:15px;color:#c7d0e0;margin-bottom:26px;font-weight:400}
-  .sub b{color:#fff;font-weight:700}
-  .cta-btn{
-    display:flex;align-items:center;justify-content:center;gap:10px;
-    width:100%;padding:18px 20px;border:none;border-radius:14px;cursor:pointer;
-    font-size:17px;font-weight:800;letter-spacing:.02em;color:#0e1b33;
-    background:linear-gradient(135deg,#e6cf94,#c9a24b);
-    box-shadow:0 10px 26px rgba(201,162,75,.45);
-    transition:transform .15s ease,box-shadow .15s ease;text-decoration:none;
-  }
+  /* HERO */
+  .hero{position:relative;overflow:hidden;color:#fff;padding:52px 0 44px;
+    background:radial-gradient(1200px 500px at 80% -10%,rgba(47,123,240,.35),transparent 60%),linear-gradient(160deg,#0b1730 0%,#132b52 40%,#16274a 100%);}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:26px}
+  .brand .mark{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#0b1730;background:linear-gradient(135deg,#9cc2ff,#2f7bf0);box-shadow:0 4px 14px rgba(47,123,240,.5)}
+  .brand .name{font-size:16px;font-weight:800;letter-spacing:.04em}
+  .brand .op{display:block;font-size:10.5px;font-weight:500;color:#aab6cc;letter-spacing:.02em}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;color:var(--blue-soft);border:1px solid rgba(156,194,255,.4);border-radius:999px;padding:6px 14px;margin-bottom:20px;font-weight:700}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px var(--blue)}
+  h1.lead{font-size:28px;line-height:1.45;font-weight:800;margin-bottom:18px}
+  h1.lead .hl{background:linear-gradient(transparent 62%,rgba(56,189,248,.45) 62%);padding:0 2px}
+  .sub{font-size:15px;color:#c7d0e0;margin-bottom:24px}
+  .sub b{color:#fff}
+  .trust{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+  .trust span{font-size:12px;color:#dbe3f0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 12px}
+  .trust span b{color:var(--blue-soft)}
+  .cta-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:18px 20px;border:none;border-radius:14px;cursor:pointer;font-size:17px;font-weight:800;color:#0e1b33;background:linear-gradient(135deg,#e6cf94,#c9a24b);box-shadow:0 10px 26px rgba(201,162,75,.45);text-decoration:none;font-family:inherit}
   .cta-btn:active{transform:translateY(2px)}
-  .cta-btn .arrow{transition:transform .2s}
-  .cta-btn:hover .arrow{transform:translateX(4px)}
-  .cta-note{text-align:center;font-size:12.5px;color:#aab6cc;margin-top:12px}
-  .trust{
-    display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:22px;
-  }
-  .trust span{
-    font-size:12px;color:#dbe3f0;background:rgba(255,255,255,.08);
-    border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 12px;
-  }
-  .trust span b{color:var(--gold-soft)}
+  .cta-note{text-align:center;font-size:12.5px;color:#aab6cc;margin-top:10px}
 
-  /* ===== SCROLL 2 : MARKET / OPPORTUNITY COST ===== */
+  /* SECTIONS */
   .section{padding:52px 0}
-  .kicker{
-    text-align:center;font-size:12px;letter-spacing:.16em;color:var(--gold);
-    font-weight:700;margin-bottom:10px;
-  }
-  h2{
-    text-align:center;font-size:23px;line-height:1.5;font-weight:800;margin-bottom:8px;letter-spacing:.01em;
-  }
-  h2 .hl{color:var(--danger)}
-  .lede{text-align:center;font-size:14px;color:var(--muted);margin-bottom:30px}
-
+  .alt{background:linear-gradient(180deg,#eef3fb,#f6f8fb)}
+  .kicker{text-align:center;font-size:12px;letter-spacing:.14em;color:var(--blue);font-weight:700;margin-bottom:10px}
+  h2{text-align:center;font-size:22px;line-height:1.5;font-weight:800;margin-bottom:8px}
+  h2 .hlb{color:var(--blue)}
+  .lede{text-align:center;font-size:14px;color:var(--muted);margin-bottom:28px}
   .cards{display:flex;flex-direction:column;gap:14px}
-  .card{
-    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
-    padding:20px 20px 18px;box-shadow:0 4px 18px rgba(14,27,51,.05);
-    position:relative;overflow:hidden;
-  }
-  .card::before{
-    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
-    background:linear-gradient(var(--gold),var(--accent));
-  }
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px 20px 18px;box-shadow:0 4px 18px rgba(14,27,51,.05);position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--blue),var(--accent))}
   .card .row{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
   .card .icon{font-size:20px;line-height:1}
   .card .label{font-size:13.5px;font-weight:700;color:var(--muted)}
-  .card .big{
-    font-size:40px;font-weight:800;letter-spacing:-.01em;color:var(--navy);
-    font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:4px;
-  }
-  .card .big .unit{font-size:18px;font-weight:700;color:var(--gold)}
+  .card .big{font-size:38px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:4px}
+  .card .big .unit{font-size:18px;font-weight:700;color:var(--blue)}
   .card .big .up{font-size:16px;color:var(--danger);font-weight:800}
   .card .desc{font-size:13px;color:var(--muted);margin-top:4px}
+  .card .desc b{color:var(--ink)}
   .card .src{font-size:10.5px;color:#aab2c0;margin-top:8px}
+  .card h3{font-size:16px;margin-bottom:6px;color:var(--navy)}
+  .note{font-size:11px;color:#97a1b2;margin-top:14px;text-align:center}
 
-  .verdict{
-    margin-top:24px;background:linear-gradient(160deg,#132745,#0e1b33);color:#fff;
-    border-radius:var(--radius);padding:24px 22px;text-align:center;box-shadow:var(--shadow);
-  }
-  .verdict .t{font-size:12px;letter-spacing:.14em;color:var(--gold-soft);font-weight:700;margin-bottom:12px}
+  .verdict{margin-top:24px;background:linear-gradient(160deg,#132745,#0e1b33);color:#fff;border-radius:var(--radius);padding:24px 22px;text-align:center;box-shadow:var(--shadow)}
+  .verdict .t{font-size:12px;letter-spacing:.12em;color:var(--blue-soft);font-weight:700;margin-bottom:12px}
   .scale{display:flex;align-items:center;justify-content:center;gap:14px;margin:6px 0 14px}
   .scale .col{flex:1;max-width:150px}
   .scale .cap{font-size:12px;color:#aeb9cd;margin-bottom:6px}
-  .bar{height:78px;border-radius:10px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;font-weight:800;font-size:14px;position:relative}
-  .bar.asset{background:linear-gradient(180deg,#38bdf8,#1e6fd0);color:#fff;align-items:flex-start;padding-top:8px}
+  .bar{height:72px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13.5px}
+  .bar.asset{background:linear-gradient(180deg,#38bdf8,#1e6fd0)}
   .bar.cash{background:linear-gradient(180deg,#495772,#33415c);color:#dfe5ef}
-  .scale .arw{font-size:20px;color:var(--gold)}
-  .verdict p{font-size:14px;color:#d7deea}
+  .scale .arw{font-size:20px;color:var(--blue-soft)}
+  .verdict p{font-size:13.5px;color:#d7deea}
   .verdict p b{color:#fff}
 
-  /* ===== SCROLL 3 : SURVEY / CTA ===== */
-  .form-sec{background:linear-gradient(180deg,#eef2f8,#f6f8fb);padding:50px 0 40px}
-  .form-card{
-    background:var(--white);border-radius:20px;box-shadow:var(--shadow);
-    padding:28px 22px;border:1px solid var(--line);
-  }
-  .form-card h2{text-align:left;font-size:22px;margin-bottom:6px}
-  .form-card .lede{text-align:left;margin-bottom:22px}
-  .field{margin-bottom:18px}
-  .field label{display:block;font-size:13.5px;font-weight:700;margin-bottom:8px;color:var(--ink)}
-  .field label .req{color:var(--danger);font-size:11px;margin-left:6px}
-  .opts{display:flex;flex-wrap:wrap;gap:8px}
-  .opts input{position:absolute;opacity:0;pointer-events:none}
-  .opts label{
-    display:inline-block;font-size:13.5px;font-weight:600;margin:0;
-    border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;
-    color:var(--ink);transition:all .15s;background:#fbfcfe;
-  }
-  .opts input:checked + label{
-    border-color:var(--accent);background:rgba(47,184,160,.1);color:#1f8f7c;
-    box-shadow:0 0 0 2px rgba(47,184,160,.15);
-  }
-  .field input[type=text],.field input[type=email],.field input[type=tel]{
-    width:100%;border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;
-    font-size:15px;font-family:inherit;color:var(--ink);background:#fbfcfe;transition:border .15s;
-  }
-  .field input:focus{outline:none;border-color:var(--accent);background:#fff}
-  .submit{
-    width:100%;padding:18px;border:none;border-radius:14px;cursor:pointer;margin-top:6px;
-    font-size:17px;font-weight:800;color:#0e1b33;letter-spacing:.02em;
-    background:linear-gradient(135deg,#e6cf94,#c9a24b);
-    box-shadow:0 10px 26px rgba(201,162,75,.4);transition:transform .15s;
-  }
-  .submit:active{transform:translateY(2px)}
-  .privacy{font-size:11.5px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.7}
-  .assur{display:flex;gap:14px;justify-content:center;margin:0 0 22px;flex-wrap:wrap}
-  .assur span{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
-  .assur span::before{content:"✓";color:var(--accent);font-weight:800}
-
-  /* success */
-  .done{display:none;text-align:center;padding:20px 6px}
-  .done .ok{font-size:52px;margin-bottom:10px}
-  .done h3{font-size:20px;margin-bottom:10px}
-  .done p{font-size:14px;color:var(--muted)}
-
-  /* footer */
-  footer{background:var(--navy);color:#96a2b8;padding:26px 0;font-size:11px;line-height:1.9}
-  footer .wrap{text-align:center}
-  footer .disc{color:#6f7c94;font-size:10.5px;margin-top:8px}
-
-  /* sticky bar */
-  .sticky{
-    position:fixed;left:0;right:0;bottom:0;z-index:50;
-    background:rgba(14,27,51,.92);backdrop-filter:blur(8px);
-    border-top:1px solid rgba(255,255,255,.08);padding:12px 16px;
-  }
-  .sticky .wrap{display:flex;align-items:center;gap:12px;padding:0 12px}
-  .sticky .txt{flex:1;color:#dbe3f0;font-size:12px;line-height:1.4}
-  .sticky .txt b{color:var(--gold-soft)}
-  .sticky a{
-    flex:0 0 auto;background:linear-gradient(135deg,#e6cf94,#c9a24b);color:#0e1b33;
-    font-weight:800;font-size:14px;padding:12px 18px;border-radius:10px;text-decoration:none;white-space:nowrap;
-    box-shadow:0 6px 16px rgba(201,162,75,.4);
-  }
-  h2 .hlb{color:var(--gold)}
-
-  /* compare */
-  .compare{display:flex;gap:10px;margin-top:6px;align-items:stretch}
+  .compare{display:flex;gap:10px;align-items:stretch}
   .compare .box{flex:1;border-radius:14px;padding:20px 12px 16px;text-align:center;border:1.5px solid var(--line);background:#fff}
-  .compare .box.good{border-color:var(--gold);background:linear-gradient(180deg,#eff5ff,#ffffff);box-shadow:0 10px 26px rgba(47,123,240,.16)}
-  .compare .box .ic{font-size:28px;line-height:1;margin-bottom:8px}
-  .compare .box .h{font-weight:800;font-size:15px;margin-bottom:8px;color:var(--muted)}
-  .compare .box.good .h{color:var(--gold)}
-  .compare .box p{font-size:11.5px;color:var(--muted);line-height:1.65}
+  .compare .box.good{border-color:var(--blue);background:linear-gradient(180deg,#eff5ff,#fff);box-shadow:0 10px 26px rgba(47,123,240,.16)}
+  .compare .ic{font-size:28px;line-height:1;margin-bottom:8px}
+  .compare .h{font-weight:800;font-size:15px;margin-bottom:8px;color:var(--muted)}
+  .compare .good .h{color:var(--blue)}
+  .compare p{font-size:11.5px;color:var(--muted);line-height:1.65}
   .compare .vs{align-self:center;font-weight:800;color:#9aa4b4;font-size:12px}
   .compare-note{text-align:center;font-size:13.5px;color:var(--muted);margin-top:16px}
   .compare-note b{color:var(--navy)}
 
-  /* closing */
-  .closing{background:linear-gradient(160deg,#132745,#0e1b33);color:#fff;text-align:center;padding:54px 0}
-  .closing h2{color:#fff}
-  .closing .lede{color:#c7d0e0;margin-bottom:6px}
-  .closing .points{max-width:400px;margin:24px auto 0;text-align:left}
-  .closing .points div{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:#e5ebf5;margin-bottom:13px;line-height:1.6}
-  .closing .points div .c{color:var(--gold-soft);font-weight:800;flex:0 0 auto;font-size:16px}
-  .closing .points div b{color:#fff}
+  .flow{display:flex;flex-direction:column;gap:10px}
+  .flow .st{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+  .flow .n{flex:0 0 32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .flow .st b{display:block;font-size:14.5px;margin-bottom:2px}
+  .flow .st span{font-size:12.5px;color:var(--muted)}
 
-  @media(min-width:600px){
-    h1.lead{font-size:34px}
-  }
+  .closing{background:linear-gradient(160deg,#132745,#0e1b33);color:#fff;padding:52px 0}
+  .closing h2{color:#fff}
+  .closing .lede{color:#c7d0e0}
+  .points{max-width:420px;margin:20px auto 0}
+  .points div{display:flex;gap:11px;font-size:14.5px;color:#e5ebf5;margin-bottom:12px;line-height:1.6}
+  .points .c{color:var(--blue-soft);font-weight:800}
+  .points b{color:#fff}
+
+  /* FORM */
+  .form-sec{background:linear-gradient(180deg,#eef2f8,#f6f8fb);padding:52px 0 44px}
+  .form-card{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:26px 20px;border:1px solid var(--line)}
+  .form-card h2{font-size:21px;margin-bottom:4px}
+  .form-card .lede{margin-bottom:18px}
+  .progress{display:flex;gap:6px;margin-bottom:6px}
+  .progress i{flex:1;height:6px;border-radius:999px;background:var(--line);transition:background .2s}
+  .progress i.on{background:var(--blue)}
+  .step-label{font-size:12px;color:var(--muted);margin-bottom:18px;text-align:right}
+  .step{display:none}
+  .step.active{display:block}
+  .field{margin-bottom:18px}
+  .field > label,.field > .q{display:block;font-size:14px;font-weight:700;margin-bottom:8px}
+  .req{color:#fff;background:var(--danger);font-size:10px;border-radius:4px;padding:1px 5px;margin-left:6px;vertical-align:2px}
+  .opt{color:var(--muted);font-size:11px;margin-left:6px;font-weight:500}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opts input{position:absolute;opacity:0;pointer-events:none}
+  .opts label{display:inline-block;font-size:14px;font-weight:600;border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;background:#fbfcfe;transition:all .15s}
+  .opts input:checked + label{border-color:var(--blue);background:#eff5ff;color:var(--blue);box-shadow:0 0 0 2px rgba(47,123,240,.15)}
+  .opts input:focus-visible + label{outline:2px solid var(--blue);outline-offset:2px}
+  input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{
+    width:100%;border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;font-size:16px;font-family:inherit;color:var(--ink);background:#fbfcfe}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);background:#fff}
+  .two{display:flex;gap:8px}
+  .two > *{flex:1}
+  .err{display:none;color:var(--danger);font-size:12.5px;margin-top:6px;font-weight:600}
+  .field.invalid .err{display:block}
+  .field.invalid input,.field.invalid select{border-color:var(--danger)}
+  .agree{font-size:12.5px;display:flex;gap:10px;align-items:flex-start;background:#f6f8fb;border-radius:10px;padding:12px}
+  .agree input{margin-top:4px;width:18px;height:18px;flex:0 0 18px}
+  .nav{display:flex;gap:10px;margin-top:8px}
+  .btn-back{flex:0 0 96px;padding:16px;border:1.5px solid var(--line);border-radius:14px;background:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--muted)}
+  .nav .cta-btn{flex:1}
+  .cta-btn[disabled]{opacity:.6;cursor:wait}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .send-err{display:none;color:var(--danger);font-size:13px;margin-top:12px;text-align:center}
+  .assur{display:flex;gap:14px;justify-content:center;margin:14px 0 0;flex-wrap:wrap}
+  .assur span{font-size:12px;color:var(--muted)}
+  .assur span::before{content:"✓ ";color:var(--blue);font-weight:800}
+
+  /* FAQ */
+  details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+  summary{font-weight:700;font-size:14.5px;cursor:pointer;list-style:none}
+  summary::before{content:"Q. ";color:var(--blue)}
+  details p{font-size:13.5px;color:var(--muted);margin-top:8px}
+
+  /* COMPANY */
+  .company{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .company th,.company td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  .company th{width:96px;background:#f6f8fb;color:var(--muted);font-weight:700}
+  .company tr:last-child th,.company tr:last-child td{border-bottom:none}
+
+  footer{background:var(--navy);color:#96a2b8;padding:26px 0;font-size:11px;line-height:1.9;text-align:center}
+  footer a{color:#c7d0e0}
+  footer .disc{color:#6f7c94;font-size:10.5px;margin-top:8px;text-align:left}
+
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(14,27,51,.94);backdrop-filter:blur(8px);padding:10px 0;transition:transform .25s}
+  .sticky.hide{transform:translateY(110%)}
+  .sticky .wrap{display:flex;align-items:center;gap:12px}
+  .sticky .txt{flex:1;color:#dbe3f0;font-size:12px;line-height:1.4}
+  .sticky .txt b{color:var(--blue-soft)}
+  .sticky a{background:linear-gradient(135deg,#e6cf94,#c9a24b);color:#0e1b33;font-weight:800;font-size:14px;padding:12px 16px;border-radius:10px;text-decoration:none;white-space:nowrap}
+  /* PROFILE */
+  .profile{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;box-shadow:0 4px 18px rgba(14,27,51,.05)}
+  .pf-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .pf-photo{flex:0 0 72px;width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#9cc2ff,#2f7bf0);color:#fff;font-size:28px;font-weight:800;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .pf-photo img{width:100%;height:100%;object-fit:cover}
+  .pf-role{font-size:12px;color:var(--muted)}
+  .pf-name{font-size:20px;font-weight:800;color:var(--navy)}
+  .profile p{font-size:14px;color:var(--ink);margin-bottom:10px}
+  .pf-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .pf-links a{font-size:13px;font-weight:700;text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;color:var(--navy)}
+  @media(min-width:600px){h1.lead{font-size:32px}}
 </style>
 </head>
 <body>
 
-<!-- ============ SCROLL 1 : HERO ============ -->
+<!-- HERO -->
 <section class="hero">
   <div class="wrap">
     <div class="brand">
-      <span class="mark">IK</span>
-      <span class="name">株式会社<span>IK</span></span>
+      <span class="mark">ラ</span>
+      <span class="name">不動産比較ラボ<span class="op">運営：株式会社IK</span></span>
     </div>
-    <span class="eyebrow"><span class="dot"></span>会社員のための資産形成 診断</span>
-    <h1 class="lead">
-      その預金、<span class="hl">毎年"静かに"</span>目減りしていませんか？
-    </h1>
+    <span class="eyebrow"><span class="dot"></span><span data-v="eyebrow">公務員・看護師のための 不動産投資比較</span></span>
+    <h1 class="lead" data-v="h1">働きながら、<br><span class="hl">不動産オーナー</span>という<br>選択肢を。</h1>
     <p class="sub">
-      物価は上がり、円の価値は<b>約40年ぶりの安値</b>。
-      銀行に置いたままの１００万円は、いま実質<b>数万円分</b>の力を毎年失っています。<br>
-      「何もしない」ことが、いちばん大きなリスクになる時代です。
+      <span data-v="sub">公務員・看護師の安定した働き方は、資産形成にも活かせる強みです。</span><br>
+      不動産オーナーに興味はあっても「どこに相談すればいいか分からない」という方へ。<b>不動産会社最大3社の話を、無料で聞き比べられます。</b>
     </p>
     <div class="trust">
       <span>最大<b>3社</b>を無料比較</span>
-      <span>初心者も<b>安心</b></span>
       <span>話を聞くだけ<b>OK</b></span>
+      <span><b>オンライン</b>面談可</span>
     </div>
+    <a href="#form" class="cta-btn">無料で比較面談を予約する <span>→</span></a>
+    <p class="cta-note">入力は約1分・費用は一切かかりません</p>
   </div>
 </section>
 
-<!-- ============ SCROLL 2 : MARKET / OPPORTUNITY COST ============ -->
+<!-- WHY -->
 <section class="section">
   <div class="wrap">
-    <p class="kicker">2026年 いま起きていること</p>
-    <h2>動いた人だけが得をして、<br><span class="hl">待った人だけが損をする</span></h2>
-    <p class="lede">数字が、あなたの「機会損失」を語っています。</p>
-
+    <p class="kicker" data-v="whyKicker">なぜ、公務員・看護師なのか</p>
+    <h2><span data-v="whyWho">公務員・看護師</span>が<br>不動産オーナーと<span class="hlb">相性がよい</span>と<br>言われる3つの理由</h2>
+    <p class="lede">職業の特性が、そのまま強みになりやすい分野です。</p>
     <div class="cards">
+      <div class="card">
+        <h3>① 職業の信用力</h3>
+        <p class="desc" data-v="why1">収入が安定している職業は、一般に<b>ローン審査で評価されやすい</b>とされています。自己資金を抑えて始められる選択肢が広がります。</p>
+      </div>
+      <div class="card">
+        <h3 data-v="why2t">② 忙しくても続けやすい</h3>
+        <p class="desc" data-v="why2">入居者対応や建物管理は<b>管理会社に任せる形が一般的</b>。夜勤や不規則な勤務があっても、本業に集中しながら運用できます。</p>
+      </div>
+      <div class="card">
+        <h3>③ 万一への備えにもなる</h3>
+        <p class="desc">ローンには<b>団体信用生命保険（団信）</b>が付くのが一般的で、契約者に万一のことがあった場合は残りの返済が保険でまかなわれる仕組みです。</p>
+      </div>
+    </div>
+    <p class="note">※審査結果や借入条件は、金融機関やお客様の状況によって異なります。</p>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="section alt">
+  <div class="wrap">
+    <p class="kicker">2026年 いま起きていること</p>
+    <h2>物価・家賃・地価。<br>数字で見る、いまの環境</h2>
+    <p class="lede">預金だけでは見えにくい変化が起きています。</p>
+    <div class="cards">
+      <div class="card">
+        <div class="row"><span class="icon">💴</span><span class="label">物価上昇（消費者物価指数）</span></div>
+        <div class="big"><span class="up" style="font-size:24px">＋</span><span class="counter" data-to="2.9">0</span><span class="unit">%</span></div>
+        <p class="desc">物価が年3%上がると、100万円の実質的な価値は<b>1年で約3万円分</b>目減りする計算です。</p>
+        <p class="src">出典：総務省 消費者物価指数（2025年）</p>
+      </div>
       <div class="card">
         <div class="row"><span class="icon">🏙️</span><span class="label">東京23区の地価（住宅地）</span></div>
         <div class="big"><span class="counter" data-to="9.0">0</span><span class="unit">%</span><span class="up">▲上昇</span></div>
-        <p class="desc">2026年公示地価。東京は<b>5年連続の上昇</b>、全国平均も＋2.8%。土地の値段は「待つほど高く」なっています。</p>
+        <p class="desc">2026年公示地価。東京は<b>5年連続の上昇</b>、全国平均も＋2.8%となっています。</p>
         <p class="src">出典：国土交通省 2026年公示地価</p>
       </div>
-
       <div class="card">
-        <div class="row"><span class="icon">🏠</span><span class="label">東京23区マンション 平均家賃</span></div>
-        <div class="big"><span class="unit" style="font-size:22px">¥</span><span class="counter" data-to="25">0</span><span class="unit">万円超</span></div>
-        <p class="desc">ファミリー向けは<b>最高値の更新が継続中</b>。家賃が上がるほど、それを「受け取る側」の価値が高まります。</p>
-        <p class="src">出典：アットホーム 賃料動向（2025年）</p>
+        <div class="row"><span class="icon">📈</span><span class="label">東京23区ワンルームの価格（過去8年）</span></div>
+        <div class="big"><span class="unit" style="font-size:22px">約</span><span class="counter" data-to="1.5">0</span><span class="unit">倍</span></div>
+        <p class="desc">2017年→2024年で価格は<b>2017年比 約153.8%</b>に。家賃も上昇傾向にあります。</p>
+        <p class="src">出典：健美家 不動産投資調査（2025年）</p>
       </div>
-
       <div class="card">
-        <div class="row"><span class="icon">💴</span><span class="label">物価上昇（消費者物価指数）</span></div>
-        <div class="big"><span class="up" style="font-size:26px">＋</span><span class="counter" data-to="2.9">0</span><span class="unit">%</span></div>
-        <p class="desc">お米は前年比＋約49%も。物価が上がると、<b>現金の実質価値は下がります</b>。貯金だけでは、資産は守れません。</p>
-        <p class="src">出典：総務省 消費者物価指数（2025年）</p>
+        <div class="row"><span class="icon">👥</span><span class="label">東京23区の単身世帯数</span></div>
+        <div class="big"><span class="up" style="font-size:24px">＋</span><span class="counter" data-to="15">0</span><span class="unit">%超</span></div>
+        <p class="desc">2045年まで増加する見込み（2020年比）。<b>賃貸需要が見込まれるエリア</b>の一つです。</p>
+        <p class="src">出典：東京都 世帯数予測／東急リバブル プロパティスタ</p>
       </div>
     </div>
-
     <div class="verdict">
       <p class="t">10年後、あなたのお金はどうなる？</p>
       <div class="scale">
-        <div class="col">
-          <div class="cap">現金のまま</div>
-          <div class="bar cash">価値 ↓ 目減り</div>
-        </div>
-        <div class="arw">→</div>
-        <div class="col">
-          <div class="cap">実物資産に</div>
-          <div class="bar asset">価値 ↑ 上昇余地</div>
-        </div>
+        <div class="col"><div class="cap">現金のまま</div><div class="bar cash">物価に左右される</div></div>
+        <div class="arw">＋</div>
+        <div class="col"><div class="cap">実物資産も</div><div class="bar asset">分散の選択肢に</div></div>
       </div>
-      <p>インフレ・円安・家賃上昇のトレンドの中で、<b>不動産は「持っているだけで価値が動く」数少ない選択肢</b>。まずは、自分に合うかどうかを知ることから。</p>
+      <p>不動産は<b>インフレに強いとされる実物資産</b>の一つ。もちろんリスクもあるからこそ、まずは自分に合うかどうかを知ることから。</p>
     </div>
+    <p class="note">※記載のデータは各公表資料に基づく参考値であり、将来の成果を保証するものではありません。</p>
   </div>
 </section>
 
-<!-- ============ 初心者でも安心（エビデンス） ============ -->
-<section class="section" style="background:linear-gradient(180deg,#eef3fb,#f6f8fb)">
-  <div class="wrap">
-    <p class="kicker">初心者でも安心できる理由</p>
-    <h2>「よく分からないから不安」を、<br><span class="hlb">数字（エビデンス）</span>で解消</h2>
-    <p class="lede">なんとなくの安心ではなく、公的データと制度で説明します。</p>
-
-    <div class="cards">
-      <div class="card">
-        <div class="row"><span class="icon">👥</span><span class="label">借り手がいなくなりにくい</span></div>
-        <div class="big"><span class="up" style="font-size:26px">＋</span><span class="counter" data-to="15">0</span><span class="unit">%超</span></div>
-        <p class="desc">東京23区の単身世帯は<b>2045年まで増加</b>見込み（2020年比＋15%超）。人が集まり続ける街なので、<b>空室リスクを抑えやすい</b>のが強みです。</p>
-        <p class="src">出典：東京都 世帯数予測／東急リバブル プロパティスタ</p>
-      </div>
-
-      <div class="card">
-        <div class="row"><span class="icon">📈</span><span class="label">価格・家賃の実績（過去8年）</span></div>
-        <div class="big"><span class="unit" style="font-size:22px">約</span><span class="counter" data-to="1.5">0</span><span class="unit">倍</span></div>
-        <p class="desc">東京23区のワンルームは、価格が2017→2024年で<b>約1.5倍（＋153.8%）</b>、家賃も上昇。実物資産は<b>値動きの土台</b>があります。</p>
-        <p class="src">出典：健美家 不動産投資調査（2025年）</p>
-      </div>
-
-      <div class="card">
-        <div class="row"><span class="icon">🛡️</span><span class="label">万一のときの備え（団信）</span></div>
-        <div class="big"><span class="unit" style="font-size:22px">残債</span><span style="font-size:40px;font-weight:800;color:var(--navy)">0</span><span class="unit">円</span></div>
-        <p class="desc">ローンには<b>団体信用生命保険（団信）</b>が付き、契約者に万一があれば<b>残りの返済は保険で完済</b>。物件は家族に残せ、<b>生命保険の代わり</b>にもなります。</p>
-        <p class="src">団信＝住宅ローンに付帯する保険制度</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 最大3社を無料比較（公平な判断） ============ -->
+<!-- COMPARE -->
 <section class="section">
   <div class="wrap">
-    <p class="kicker">IKだからできること</p>
+    <p class="kicker">不動産比較ラボだからできること</p>
     <h2>1社の話だけで、決めない。<br>最大<span class="hlb">3社</span>を無料で比較</h2>
-    <p class="lede">複数を並べて見るから、あなたにとって公平な判断ができます。</p>
-
+    <p class="lede">複数を並べて見るから、納得して判断できます。</p>
     <div class="compare">
-      <div class="box">
-        <div class="ic">😟</div>
-        <div class="h">1社だけの話</div>
-        <p>比べる基準がなく、その会社に都合のよい提案かどうか分からないまま進みがち。</p>
-      </div>
+      <div class="box"><div class="ic">😟</div><div class="h">1社だけの話</div><p>比べる基準がなく、その会社に都合のよい提案かどうか分からないまま進みがち。</p></div>
       <div class="vs">VS</div>
-      <div class="box good">
-        <div class="ic">⚖️</div>
-        <div class="h">最大3社を比較</div>
-        <p>条件・費用・サポートを横並びで確認。納得できる1社を、自分の目で選べる。</p>
-      </div>
+      <div class="box good"><div class="ic">⚖️</div><div class="h">最大3社を比較</div><p>条件・費用・サポートを横並びで確認。納得できる1社を、自分の目で選べる。</p></div>
     </div>
-    <p class="compare-note">IKは特定の1社に偏らず、<b>あなたに合いそうな会社を最大3社まで無料でご紹介</b>。比較検討そのものが、失敗しないための第一歩です。</p>
+    <p class="compare-note">特定の1社に偏らず、<b>あなたに合いそうな会社を最大3社までご紹介</b>します。</p>
   </div>
 </section>
 
-<!-- ============ 話を聞くだけでもOK（クロージング） ============ -->
+<!-- FLOW -->
+<section class="section alt">
+  <div class="wrap">
+    <p class="kicker">ご利用の流れ</p>
+    <h2>予約から面談まで</h2>
+    <p class="lede">すべて無料。途中でやめても大丈夫です。</p>
+    <div class="flow">
+      <div class="st"><div class="n">1</div><div><b>フォームから予約（約1分）</b><span>ご希望の日時と面談方法を選ぶだけ。</span></div></div>
+      <div class="st"><div class="n">2</div><div><b>日程確認のご連絡</b><span>当社から、面談日時の確認をご連絡します。</span></div></div>
+      <div class="st"><div class="n">3</div><div><b>最大3社と面談</b><span>オンライン・対面どちらも可。話を聞くだけでOK。</span></div></div>
+      <div class="st"><div class="n">4</div><div><b>比較してじっくり検討</b><span>合わなければお断りいただいて問題ありません。</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
 <section class="closing">
   <div class="wrap">
-    <p class="kicker">まずは知ることから</p>
+    <p class="kicker" style="color:var(--blue-soft)">まずは知ることから</p>
     <h2>契約する前に、<br>「話を聞くだけ」でもOK</h2>
-    <p class="lede">私たちが一番に伝えたいのは、あなたの<b style="color:#fff">知見を広げてほしい</b>ということ。</p>
     <div class="points">
-      <div><span class="c">✓</span><span>その場で契約を迫るような場ではありません。<b>情報収集だけ</b>でも大歓迎です。</span></div>
-      <div><span class="c">✓</span><span>「自分にも向いているか」「どんな選択肢があるか」を、<b>フラットに知る</b>ことが目的。</span></div>
-      <div><span class="c">✓</span><span>最大3社の比較を通じて、<b>投資の判断軸</b>そのものが身につきます。</span></div>
+      <div><span class="c">✓</span><span>その場で契約を迫るような場ではありません。<b>情報収集だけ</b>でも歓迎です。</span></div>
+      <div><span class="c">✓</span><span>「自分にも向いているか」を<b>フラットに知る</b>ことが目的。</span></div>
+      <div><span class="c">✓</span><span>複数社の比較を通じて、<b>投資の判断軸</b>そのものが身につきます。</span></div>
     </div>
-    <p class="lede" style="margin-top:24px">知ったうえで「やらない」と決めるのも、立派な判断。<br>まずは、下のアンケートから気軽にはじめてください。</p>
+    <p class="lede" style="margin-top:20px">知ったうえで「やらない」と決めるのも、立派な判断です。</p>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-sec" id="form">
+  <div class="wrap">
+    <div class="form-card">
+      <h2>無料 比較面談のご予約</h2>
+      <p class="lede">3つのステップ・約1分で完了します</p>
+      <div class="progress"><i class="on"></i><i></i><i></i></div>
+      <p class="step-label" id="stepLabel">STEP 1 / 3　あなたについて</p>
+
+      <form id="lpForm" novalidate>
+        <!-- STEP 1 -->
+        <div class="step active" data-step="1">
+          <div class="field" data-req="radio" data-name="job">
+            <span class="q">ご職業<span class="req">必須</span></span>
+            <div class="opts">
+              <input type="radio" name="job" id="j1" value="公務員"><label for="j1">公務員</label>
+              <input type="radio" name="job" id="j2" value="看護師"><label for="j2">看護師</label>
+              <input type="radio" name="job" id="j3" value="その他医療職"><label for="j3">その他医療職</label>
+              <input type="radio" name="job" id="j4" value="会社員"><label for="j4">会社員</label>
+              <input type="radio" name="job" id="j5" value="その他"><label for="j5">その他</label>
+            </div>
+            <p class="err">ご職業を選択してください</p>
+          </div>
+          <div class="field" data-req="radio" data-name="age">
+            <span class="q">年代<span class="req">必須</span></span>
+            <div class="opts">
+              <input type="radio" name="age" id="a1" value="20代"><label for="a1">20代</label>
+              <input type="radio" name="age" id="a2" value="30代"><label for="a2">30代</label>
+              <input type="radio" name="age" id="a3" value="40代"><label for="a3">40代</label>
+              <input type="radio" name="age" id="a4" value="50代以上"><label for="a4">50代以上</label>
+            </div>
+            <p class="err">年代を選択してください</p>
+          </div>
+          <div class="field" data-req="radio" data-name="income">
+            <span class="q">年収（税込）<span class="req">必須</span></span>
+            <div class="opts">
+              <input type="radio" name="income" id="i1" value="500万円未満"><label for="i1">500万円未満</label>
+              <input type="radio" name="income" id="i2" value="500〜700万円"><label for="i2">500〜700万円</label>
+              <input type="radio" name="income" id="i3" value="700〜1000万円"><label for="i3">700〜1000万円</label>
+              <input type="radio" name="income" id="i4" value="1000万円以上"><label for="i4">1000万円以上</label>
+            </div>
+            <p class="err">年収を選択してください</p>
+          </div>
+          <div class="field" data-req="radio" data-name="experience">
+            <span class="q">不動産投資のご経験<span class="req">必須</span></span>
+            <div class="opts">
+              <input type="radio" name="experience" id="e1" value="はじめて"><label for="e1">はじめて</label>
+              <input type="radio" name="experience" id="e2" value="検討・勉強中"><label for="e2">検討・勉強中</label>
+              <input type="radio" name="experience" id="e3" value="物件を保有している"><label for="e3">保有している</label>
+            </div>
+            <p class="err">選択してください</p>
+          </div>
+          <div class="nav"><button type="button" class="cta-btn" data-next>次へ進む →</button></div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step" data-step="2">
+          <div class="field" data-req="radio" data-name="style">
+            <span class="q">面談の方法<span class="req">必須</span></span>
+            <div class="opts">
+              <input type="radio" name="style" id="s1" value="オンライン"><label for="s1">オンライン</label>
+              <input type="radio" name="style" id="s2" value="対面"><label for="s2">対面</label>
+              <input type="radio" name="style" id="s3" value="どちらでも"><label for="s3">どちらでも</label>
+            </div>
+            <p class="err">面談の方法を選択してください</p>
+          </div>
+          <div class="field" data-req="value" data-name="pref">
+            <label for="pref">お住まいの都道府県<span class="req">必須</span></label>
+            <select name="pref" id="pref"><option value="">選択してください</option></select>
+            <p class="err">都道府県を選択してください</p>
+          </div>
+          <div class="field" data-req="value" data-name="date1">
+            <span class="q">第1希望日時<span class="req">必須</span></span>
+            <div class="two">
+              <input type="date" name="date1" id="date1" aria-label="第1希望日">
+              <select name="time1" aria-label="第1希望時間帯">
+                <option value="いつでも可">いつでも可</option><option>10:00〜12:00</option><option>12:00〜15:00</option><option>15:00〜18:00</option><option>18:00〜21:00</option>
+              </select>
+            </div>
+            <p class="err">第1希望日を選択してください</p>
+          </div>
+          <div class="field">
+            <span class="q">第2希望日時<span class="opt">任意</span></span>
+            <div class="two">
+              <input type="date" name="date2" id="date2" aria-label="第2希望日">
+              <select name="time2" aria-label="第2希望時間帯">
+                <option value="">ー</option><option>いつでも可</option><option>10:00〜12:00</option><option>12:00〜15:00</option><option>15:00〜18:00</option><option>18:00〜21:00</option>
+              </select>
+            </div>
+          </div>
+          <div class="nav"><button type="button" class="btn-back" data-back>戻る</button><button type="button" class="cta-btn" data-next>次へ進む →</button></div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step" data-step="3">
+          <div class="field" data-req="value" data-name="name">
+            <label for="name">お名前<span class="req">必須</span></label>
+            <input type="text" name="name" id="name" autocomplete="name" placeholder="山田 花子">
+            <p class="err">お名前を入力してください</p>
+          </div>
+          <div class="field" data-req="value" data-name="kana">
+            <label for="kana">フリガナ<span class="req">必須</span></label>
+            <input type="text" name="kana" id="kana" placeholder="ヤマダ ハナコ">
+            <p class="err">フリガナを入力してください</p>
+          </div>
+          <div class="field" data-req="tel" data-name="tel">
+            <label for="tel">電話番号<span class="req">必須</span></label>
+            <input type="tel" name="tel" id="tel" autocomplete="tel" inputmode="tel" placeholder="09012345678">
+            <p class="err">電話番号を正しく入力してください</p>
+          </div>
+          <div class="field" data-req="email" data-name="email">
+            <label for="email">メールアドレス<span class="req">必須</span></label>
+            <input type="email" name="email" id="email" autocomplete="email" placeholder="example@mail.com">
+            <p class="err">メールアドレスを正しく入力してください</p>
+          </div>
+          <div class="field">
+            <label for="message">ご質問・ご要望<span class="opt">任意</span></label>
+            <textarea name="message" id="message" rows="3" placeholder="例：はじめてなので基礎から聞きたい"></textarea>
+          </div>
+          <div class="hp" aria-hidden="true"><label>website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <input type="hidden" name="source" id="source">
+          <div class="field" data-req="check" data-name="agree">
+            <label class="agree"><input type="checkbox" name="agree" value="同意"><span><a href="privacy.html" target="_blank">プライバシーポリシー</a>に同意し、入力内容を面談先の提携不動産会社（最大3社）へ提供することに同意します。</span></label>
+            <p class="err">同意が必要です</p>
+          </div>
+          <div class="nav"><button type="button" class="btn-back" data-back>戻る</button><button type="submit" class="cta-btn" id="submitBtn">無料で予約する</button></div>
+          <p class="send-err" id="sendErr">送信に失敗しました。時間をおいて再度お試しいただくか、お電話（06-6195-1323）でお問い合わせください。</p>
+        </div>
+      </form>
+      <div class="assur"><span>費用は無料</span><span>話を聞くだけOK</span><span>無理な勧誘なし</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="wrap">
+    <p class="kicker">よくあるご質問</p>
+    <h2>FAQ</h2>
+    <p class="lede"></p>
+    <details><summary>本当に無料ですか？</summary><p>はい。面談やご紹介で、お客様に費用がかかることはありません。</p></details>
+    <details><summary>なぜ無料で利用できるのですか？</summary><p>当社は、提携する不動産会社から紹介料をいただく仕組みで運営しています。そのため、お客様からは費用をいただいていません。紹介料の有無によって特定の1社をおすすめすることはなく、比較したうえでご自身で選んでいただくことを大切にしています。</p></details>
+    <details id="faqKoumuin" hidden><summary>公務員でも不動産投資はできますか？</summary><p>公務員は副業が制限されていますが、不動産投資は一定の規模までであれば認められるケースが一般的です。たとえば国家公務員の場合、人事院の基準で「5棟10室未満」などの目安が示されており、これを超える場合は承認が必要になります。地方公務員の方は、所属先の規定もあわせてご確認ください。面談でも詳しくご質問いただけます。</p></details>
+    <details><summary>面談後、契約しなくても大丈夫ですか？</summary><p>もちろん大丈夫です。情報収集だけの方も多くいらっしゃいます。比較したうえでお断りいただいて問題ありません。</p></details>
+    <details><summary>はじめてで何も分からないのですが…</summary><p>はじめての方を前提にご案内しています。基本的な仕組みやリスクも含めてご質問ください。</p></details>
+    <details><summary>オンラインで面談できますか？</summary><p>はい、可能です。ご自宅からスマートフォンやパソコンでご参加いただけます。</p></details>
+  </div>
+</section>
+
+<!-- PROFILE -->
+<section class="section alt">
+  <div class="wrap">
+    <p class="kicker">運営者紹介</p>
+    <h2>「1社の話だけで決めない」<br>仕組みをつくった理由</h2>
+    <p class="lede"></p>
+    <div class="profile">
+      <div class="pf-head">
+        <div class="pf-photo" id="pfPhoto">伊</div>
+        <div>
+          <div class="pf-role">株式会社IK 代表／ファイナンシャルプランナー</div>
+          <div class="pf-name">伊原 健正</div>
+        </div>
+      </div>
+      <p>保険会社に勤めていた頃、会社のルールやノルマがある中で、本当の意味でお客様のためになる提案ができないもどかしさを感じていました。</p>
+      <p>その経験から独立し、FPとして家計や資産形成のご相談を受けてきました。不動産投資は金額が大きいぶん、<b>1社の話だけで決めてしまうのが一番もったいない</b>と感じています。</p>
+      <p>複数社の話を聞き比べて、納得したうえで選ぶ。やらないと決めるのも自由。そのための場として「不動産比較ラボ」をつくりました。</p>
+      <div class="pf-links" id="pfLinks"></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPANY -->
+<section class="section">
+  <div class="wrap">
+    <p class="kicker">運営会社</p>
+    <h2>会社概要</h2>
+    <p class="lede"></p>
+    <table class="company">
+      <tr><th>サービス名</th><td>不動産比較ラボ</td></tr>
+      <tr><th>運営会社</th><td>株式会社IK</td></tr>
+      <tr><th>代表者</th><td>伊原 健正</td></tr>
+      <tr><th>所在地</th><td>〒532-0011<br>大阪府大阪市淀川区西中島2-14-13-701</td></tr>
+      <tr><th>電話番号</th><td><a href="tel:0661951323">06-6195-1323</a></td></tr>
+      <tr><th>メール</th><td><a href="mailto:ihara@ikcompanies.com">ihara@ikcompanies.com</a></td></tr>
+      <tr id="hpRow" hidden><th>ホームページ</th><td><a id="hpLink" href="#" target="_blank" rel="noopener"></a></td></tr>
+    </table>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
+    <a href="privacy.html">プライバシーポリシー</a><br>
     © 2026 株式会社IK. All rights reserved.
-    <p class="disc">
-      本ページは不動産投資に関する情報提供を目的としたものです。投資は元本を保証するものではなく、価格変動等のリスクを伴います。
-      記載の市場データは各公表資料に基づく参考値であり、将来の成果を約束するものではありません。最終的なご判断はご自身の責任でお願いいたします。
-    </p>
+    <p class="disc">本ページは不動産投資に関する情報提供および面談先のご紹介を目的としたものです。不動産投資は元本を保証するものではなく、価格変動・空室・金利変動等のリスクを伴います。記載の市場データは各公表資料に基づく参考値であり、将来の成果を約束するものではありません。最終的なご判断はご自身の責任でお願いいたします。</p>
   </div>
 </footer>
 
+<div class="sticky" id="sticky">
+  <div class="wrap">
+    <div class="txt"><span data-v="sticky">公務員・看護師の方へ</span><br>最大<b>3社</b>を無料で比較</div>
+    <a href="#form">無料で予約する</a>
+  </div>
+</div>
+
 <script>
-  // animated counters
-  const counters = document.querySelectorAll('.counter');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(en=>{
-      if(en.isIntersecting){
-        const el = en.target;
-        const to = parseFloat(el.dataset.to);
-        const dec = (to % 1 !== 0) ? 1 : 0;
-        let cur = 0;
-        const step = to / 40;
-        const tick = ()=>{
-          cur += step;
-          if(cur >= to){ el.textContent = to.toFixed(dec); }
-          else { el.textContent = cur.toFixed(dec); requestAnimationFrame(tick); }
-        };
-        tick();
-        io.unobserve(el);
-      }
+(function(){
+  /* 職業別の出し分け：?t=nurse（看護師）／?t=koumuin（公務員）／指定なし（両方） */
+  var V={
+    nurse:{
+      eyebrow:'看護師のための 不動産投資比較',
+      h1:'看護師として働きながら、<br><span class="hl">不動産オーナー</span>という<br>選択肢を。',
+      sub:'夜勤もある忙しい毎日だからこそ、お金にも働いてもらう仕組みを。',
+      whyKicker:'なぜ、看護師なのか',
+      whyWho:'看護師',
+      why1:'国家資格を持ち、全国どこでも求人がある看護師は、一般に<b>ローン審査で評価されやすい職業</b>とされています。自己資金を抑えて始められる選択肢が広がります。',
+      why2t:'② 夜勤・シフト勤務でも続けやすい',
+      why2:'入居者対応や建物管理は<b>管理会社に任せる形が一般的</b>。不規則な勤務でも、手間をかけずに本業と両立しやすいのが特徴です。',
+      sticky:'看護師の方へ'
+    },
+    koumuin:{
+      eyebrow:'公務員のための 不動産投資比較',
+      h1:'公務員の安定収入を活かして、<br><span class="hl">不動産オーナー</span>という<br>選択肢を。',
+      sub:'副業が制限される公務員でも、一定の範囲で認められているのが不動産投資です。',
+      whyKicker:'なぜ、公務員なのか',
+      whyWho:'公務員',
+      why1:'収入が安定している公務員は、一般に<b>ローン審査で最も評価されやすい職業の一つ</b>とされています。自己資金を抑えて始められる選択肢が広がります。',
+      why2t:'② 副業制限があっても始めやすい',
+      why2:'不動産投資は<b>一定の規模までなら認められるケースが一般的</b>。管理は管理会社に任せる形が多く、本業に集中しながら運用できます。',
+      sticky:'公務員の方へ'
+    }
+  };
+  var tp=new URLSearchParams(location.search).get('t');
+  var cur=V[tp];
+  if(cur){
+    document.querySelectorAll('[data-v]').forEach(function(el){
+      var k=el.dataset.v; if(cur[k]!=null) el.innerHTML=cur[k];
     });
-  },{threshold:.6});
-  counters.forEach(c=>io.observe(c));
+    document.title=cur.eyebrow.replace(' 不動産投資比較','')+'の不動産投資比較｜不動産比較ラボ';
+  }
+  if(tp!=='nurse'){ document.getElementById('faqKoumuin').hidden=false; }
+
+  /* 運営者リンク・写真（config.jsで設定） */
+  var C=window.SITE_CONFIG||{};
+  var links=document.getElementById('pfLinks');
+  function addLink(url,label){var a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent=label;links.appendChild(a);}
+  if(C.INSTAGRAM_URL) addLink(C.INSTAGRAM_URL,'Instagram →');
+  if(C.COMPANY_URL){
+    addLink(C.COMPANY_URL,'会社ホームページ →');
+    var hp=document.getElementById('hpLink');hp.href=C.COMPANY_URL;hp.textContent=C.COMPANY_URL;
+    document.getElementById('hpRow').hidden=false;
+  }
+  if(C.PROFILE_PHOTO){
+    var img=document.createElement('img');img.src=C.PROFILE_PHOTO;img.alt='伊原 健正';
+    var ph=document.getElementById('pfPhoto');ph.textContent='';ph.appendChild(img);
+  }
+
+  /* カウンター */
+  var counters=document.querySelectorAll('.counter');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var el=en.target,to=parseFloat(el.dataset.to),dec=(to%1!==0)?1:0,cur=0,step=to/40;
+        (function tick(){cur+=step;if(cur>=to){el.textContent=to.toFixed(dec);}else{el.textContent=cur.toFixed(dec);requestAnimationFrame(tick);}})();
+        io.unobserve(el);
+      });
+    },{threshold:.6});
+    counters.forEach(function(c){io.observe(c);});
+  } else { counters.forEach(function(c){c.textContent=c.dataset.to;}); }
+
+  /* 都道府県 */
+  var prefs="北海道,青森県,岩手県,宮城県,秋田県,山形県,福島県,茨城県,栃木県,群馬県,埼玉県,千葉県,東京都,神奈川県,新潟県,富山県,石川県,福井県,山梨県,長野県,岐阜県,静岡県,愛知県,三重県,滋賀県,京都府,大阪府,兵庫県,奈良県,和歌山県,鳥取県,島根県,岡山県,広島県,山口県,徳島県,香川県,愛媛県,高知県,福岡県,佐賀県,長崎県,熊本県,大分県,宮崎県,鹿児島県,沖縄県".split(',');
+  var sel=document.getElementById('pref');
+  prefs.forEach(function(p){var o=document.createElement('option');o.value=p;o.textContent=p;sel.appendChild(o);});
+
+  /* 希望日は明日以降 */
+  var t=new Date();t.setDate(t.getDate()+1);
+  var min=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+  document.getElementById('date1').min=min;document.getElementById('date2').min=min;
+
+  /* 流入元（広告のURLパラメータ） */
+  document.getElementById('source').value=(location.search||'').slice(1,300);
+
+  /* ステップ制御 */
+  var form=document.getElementById('lpForm');
+  var steps=form.querySelectorAll('.step');
+  var bars=document.querySelectorAll('.progress i');
+  var labels=['あなたについて','面談のご希望','ご連絡先'];
+  var current=1;
+
+  function validate(stepEl){
+    var ok=true,first=null;
+    stepEl.querySelectorAll('.field[data-req]').forEach(function(f){
+      var type=f.dataset.req,name=f.dataset.name,valid=true;
+      if(type==='radio'){valid=!!form.querySelector('input[name="'+name+'"]:checked');}
+      else if(type==='check'){valid=form.querySelector('input[name="'+name+'"]').checked;}
+      else{
+        var v=(form.elements[name].value||'').trim();
+        if(type==='value') valid=v!=='';
+        if(type==='tel') valid=/^0\d{9,10}$/.test(v.replace(/[-ー－\s]/g,''));
+        if(type==='email') valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      }
+      f.classList.toggle('invalid',!valid);
+      if(!valid){ok=false;if(!first)first=f;}
+    });
+    if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+    return ok;
+  }
+  function go(n){
+    current=n;
+    steps.forEach(function(s){s.classList.toggle('active',+s.dataset.step===n);});
+    bars.forEach(function(b,i){b.classList.toggle('on',i<n);});
+    document.getElementById('stepLabel').textContent='STEP '+n+' / 3　'+labels[n-1];
+    document.getElementById('form').scrollIntoView({behavior:'smooth'});
+  }
+  form.addEventListener('click',function(e){
+    if(e.target.matches('[data-next]')){ if(validate(steps[current-1])) go(current+1); }
+    if(e.target.matches('[data-back]')){ go(current-1); }
+  });
+  form.addEventListener('change',function(e){
+    var f=e.target.closest('.field');
+    if(f&&f.classList.contains('invalid')) f.classList.remove('invalid');
+  });
+
+  /* 送信 */
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!validate(steps[2])) return;
+    var endpoint=(window.SITE_CONFIG||{}).GAS_ENDPOINT;
+    var btn=document.getElementById('submitBtn');
+    var errEl=document.getElementById('sendErr');
+    errEl.style.display='none';
+    if(!endpoint){ alert('【設定前】config.js の GAS_ENDPOINT が未設定です'); return; }
+    btn.disabled=true;btn.textContent='送信中…';
+    var params=new URLSearchParams(new FormData(form));
+    params.set('tel',(params.get('tel')||'').replace(/[-ー－\s]/g,''));
+    fetch(endpoint,{method:'POST',mode:'no-cors',body:params})
+      .then(function(){
+        try{sessionStorage.setItem('lp_submitted','1');}catch(err){}
+        location.href='thanks.html';
+      })
+      .catch(function(){
+        btn.disabled=false;btn.textContent='無料で予約する';errEl.style.display='block';
+      });
+  });
+
+  /* 追従バー：フォーム表示中は隠す */
+  var sticky=document.getElementById('sticky');
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){sticky.classList.toggle('hide',en[0].isIntersecting);},{threshold:.05})
+      .observe(document.getElementById('form'));
+  }
+})();
 </script>
 </body>
 </html>
