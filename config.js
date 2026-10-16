@@ -9,7 +9,7 @@ window.SITE_CONFIG = {
 
   // ② MetaピクセルID(数字だけ)
   //    例: '123456789012345'
-  META_PIXEL_ID: '',
+  META_PIXEL_ID: '1635094978289532',
 
   // ③ 会社HPのURL(空欄なら非表示)
   COMPANY_URL: 'https://ik-info.com/',
