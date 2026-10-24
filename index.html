@@ -173,6 +173,13 @@
   .qb:active{transform:translateY(2px)}
   .qb[data-job=""]{background:#fff;color:#0e1b33;box-shadow:none}
   .note-s{font-size:12px;color:var(--muted);margin:-4px 0 8px}
+  /* MID CTA */
+  .midcta{padding:8px 0 36px}
+  .alt + .midcta{background:#f6f8fb}
+  .mc-card{background:linear-gradient(160deg,#132745,#0e1b33);color:#fff;border-radius:18px;padding:22px 18px 16px;text-align:center;box-shadow:var(--shadow)}
+  .mc-title{font-size:19px;font-weight:800;line-height:1.5;margin-bottom:6px}
+  .mc-sub{font-size:13px;color:#c7d0e0;margin-bottom:14px}
+  .mc-note{font-size:11.5px;color:#aab6cc;margin-top:10px}
   /* PROFILE */
   .profile{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;box-shadow:0 4px 18px rgba(14,27,51,.05)}
   .pf-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
@@ -242,6 +249,22 @@
   </div>
 </section>
 
+<!-- CTA:why -->
+<section class="midcta">
+  <div class="wrap">
+    <div class="mc-card">
+      <p class="mc-title">自分にも向いているか、<br>プロに聞いてみませんか？</p>
+      <p class="mc-sub">不動産会社最大3社の話を、オンラインで無料で聞き比べ。</p>
+      <div class="quick-btns">
+        <button type="button" class="qb" data-job="看護師" data-pos="why">看護師</button>
+        <button type="button" class="qb" data-job="公務員" data-pos="why">公務員</button>
+        <button type="button" class="qb" data-job="" data-pos="why">その他</button>
+      </div>
+      <p class="mc-note">ご職業を選ぶと予約フォームへ進みます・費用は無料</p>
+    </div>
+  </div>
+</section>
+
 <!-- MARKET -->
 <section class="section alt">
   <div class="wrap">
@@ -287,6 +310,22 @@
   </div>
 </section>
 
+<!-- CTA:market -->
+<section class="midcta">
+  <div class="wrap">
+    <div class="mc-card">
+      <p class="mc-title">数字を見て気になったら、<br>まずは話を聞くだけでOK</p>
+      <p class="mc-sub">その場で契約を迫ることはありません。</p>
+      <div class="quick-btns">
+        <button type="button" class="qb" data-job="看護師" data-pos="market">看護師</button>
+        <button type="button" class="qb" data-job="公務員" data-pos="market">公務員</button>
+        <button type="button" class="qb" data-job="" data-pos="market">その他</button>
+      </div>
+      <p class="mc-note">ご職業を選ぶと予約フォームへ進みます・費用は無料</p>
+    </div>
+  </div>
+</section>
+
 <!-- COMPARE -->
 <section class="section">
   <div class="wrap">
@@ -299,6 +338,22 @@
       <div class="box good"><div class="ic">⚖️</div><div class="h">最大3社を比較</div><p>条件・費用・サポートを横並びで確認。納得できる1社を、自分の目で選べる。</p></div>
     </div>
     <p class="compare-note">特定の1社に偏らず、<b>あなたに合いそうな会社を最大3社までご紹介</b>します。</p>
+  </div>
+</section>
+
+<!-- CTA:compare -->
+<section class="midcta">
+  <div class="wrap">
+    <div class="mc-card">
+      <p class="mc-title">1社で決めずに、<br>最大3社を比べてみる</p>
+      <p class="mc-sub">入力は約1分。オンラインで完結します。</p>
+      <div class="quick-btns">
+        <button type="button" class="qb" data-job="看護師" data-pos="compare">看護師</button>
+        <button type="button" class="qb" data-job="公務員" data-pos="compare">公務員</button>
+        <button type="button" class="qb" data-job="" data-pos="compare">その他</button>
+      </div>
+      <p class="mc-note">ご職業を選ぶと予約フォームへ進みます・費用は無料</p>
+    </div>
   </div>
 </section>
 
@@ -480,6 +535,22 @@
   </div>
 </section>
 
+<!-- CTA:profile -->
+<section class="midcta">
+  <div class="wrap">
+    <div class="mc-card">
+      <p class="mc-title">不動産比較ラボで、<br>納得できる1社を見つける</p>
+      <p class="mc-sub">話を聞くだけでも大歓迎です。</p>
+      <div class="quick-btns">
+        <button type="button" class="qb" data-job="看護師" data-pos="profile">看護師</button>
+        <button type="button" class="qb" data-job="公務員" data-pos="profile">公務員</button>
+        <button type="button" class="qb" data-job="" data-pos="profile">その他</button>
+      </div>
+      <p class="mc-note">ご職業を選ぶと予約フォームへ進みます・費用は無料</p>
+    </div>
+  </div>
+</section>
+
 <!-- COMPANY -->
 <section class="section">
   <div class="wrap">
@@ -531,7 +602,7 @@
     },
     koumuin:{
       eyebrow:'公務員のための 不動産投資比較',
-      h1:'公務員の安定収入を活かして、<br><span class="hl">不動産オーナー</span>という<br>選択肢を。',
+      h1:'公務員の<br>安定収入を活かして、<br><span class="hl">不動産オーナー</span>という<br>選択肢を。',
       sub:'副業が制限される公務員でも、一定の範囲で認められているのが不動産投資です。',
       whyKicker:'なぜ、公務員なのか',
       whyWho:'公務員',
@@ -669,7 +740,8 @@
     b.addEventListener('click',function(){
       var j=b.dataset.job;
       if(j){var r=form.querySelector('input[name="job"][value="'+j+'"]'); if(r){r.checked=true; r.closest('.field').classList.remove('invalid');}}
-      ev('HeroJobTap',true);
+      ev(b.dataset.pos?'MidCTATap':'HeroJobTap',true);
+      try{ if(window.fbq&&b.dataset.pos) fbq('trackCustom','MidCTATap_'+b.dataset.pos); }catch(e){}
       formSec.scrollIntoView({behavior:'smooth'});
     });
   });
