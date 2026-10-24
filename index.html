@@ -8,7 +8,7 @@
 <meta property="og:title" content="不動産比較ラボ｜公務員・看護師のための不動産投資 無料比較面談">
 <meta property="og:description" content="不動産投資会社を最大3社まで無料で比較。話を聞くだけでもOK。">
 <meta property="og:type" content="website">
-<script src="config.js?v=2"></script>
+<script src="config.js?v=3"></script>
 <style>
   :root{
     --navy:#0e1b33;--navy2:#16274a;--blue:#2f7bf0;--blue-soft:#9cc2ff;--accent:#38bdf8;
@@ -165,6 +165,14 @@
   .sticky .txt{flex:1;color:#dbe3f0;font-size:12px;line-height:1.4}
   .sticky .txt b{color:var(--blue-soft)}
   .sticky a{background:linear-gradient(135deg,#e6cf94,#c9a24b);color:#0e1b33;font-weight:800;font-size:14px;padding:12px 16px;border-radius:10px;text-decoration:none;white-space:nowrap}
+  /* QUICK START */
+  .quick{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:18px 16px 14px}
+  .quick-q{font-size:15px;font-weight:800;margin-bottom:12px;text-align:center}
+  .quick-btns{display:flex;gap:8px}
+  .qb{flex:1;padding:16px 6px;border:none;border-radius:12px;font-size:17px;font-weight:800;font-family:inherit;color:#0e1b33;background:linear-gradient(135deg,#efdba4,#c9a24b);box-shadow:0 8px 20px rgba(201,162,75,.35);cursor:pointer}
+  .qb:active{transform:translateY(2px)}
+  .qb[data-job=""]{background:#fff;color:#0e1b33;box-shadow:none}
+  .note-s{font-size:12px;color:var(--muted);margin:-4px 0 8px}
   /* PROFILE */
   .profile{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;box-shadow:0 4px 18px rgba(14,27,51,.05)}
   .pf-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
@@ -198,8 +206,15 @@
       <span>話を聞くだけ<b>OK</b></span>
       <span><b>オンライン</b>面談可</span>
     </div>
-    <a href="#form" class="cta-btn">無料で比較面談を予約する <span>→</span></a>
-    <p class="cta-note">入力は約1分・費用は一切かかりません</p>
+    <div class="quick">
+      <p class="quick-q">まずは、あなたのご職業を選んでください</p>
+      <div class="quick-btns">
+        <button type="button" class="qb" data-job="看護師">看護師</button>
+        <button type="button" class="qb" data-job="公務員">公務員</button>
+        <button type="button" class="qb" data-job="">その他</button>
+      </div>
+      <p class="cta-note">タップすると無料予約フォームへ進みます・入力は約1分</p>
+    </div>
   </div>
 </section>
 
@@ -321,7 +336,7 @@
   <div class="wrap">
     <div class="form-card">
       <h2>無料 比較面談のご予約</h2>
-      <p class="lede">3つのステップ・約1分で完了します</p>
+      <p class="lede">かんたん3ステップ・約1分で完了します</p>
       <div class="progress"><i class="on"></i><i></i><i></i></div>
       <p class="step-label" id="stepLabel">STEP 1 / 3　あなたについて</p>
 
@@ -349,16 +364,6 @@
             </div>
             <p class="err">年代を選択してください</p>
           </div>
-          <div class="field" data-req="radio" data-name="income">
-            <span class="q">年収（税込）<span class="req">必須</span></span>
-            <div class="opts">
-              <input type="radio" name="income" id="i1" value="500万円未満"><label for="i1">500万円未満</label>
-              <input type="radio" name="income" id="i2" value="500〜700万円"><label for="i2">500〜700万円</label>
-              <input type="radio" name="income" id="i3" value="700〜1000万円"><label for="i3">700〜1000万円</label>
-              <input type="radio" name="income" id="i4" value="1000万円以上"><label for="i4">1000万円以上</label>
-            </div>
-            <p class="err">年収を選択してください</p>
-          </div>
           <div class="field" data-req="radio" data-name="experience">
             <span class="q">不動産投資のご経験<span class="req">必須</span></span>
             <div class="opts">
@@ -382,44 +387,40 @@
             </div>
             <p class="err">面談の方法を選択してください</p>
           </div>
+          <div class="field">
+            <span class="q">ご希望の日程</span>
+            <div class="two">
+              <select name="date1" id="date1" aria-label="希望日"><option value="日程は相談して決めたい">相談して決めたい</option></select>
+              <select name="time1" aria-label="希望時間帯">
+                <option value="いつでも可">時間帯：いつでも可</option><option>10:00〜12:00</option><option>12:00〜15:00</option><option>15:00〜18:00</option><option>18:00〜21:00</option>
+              </select>
+            </div>
+          </div>
           <div class="field" data-req="value" data-name="pref">
             <label for="pref">お住まいの都道府県<span class="req">必須</span></label>
             <select name="pref" id="pref"><option value="">選択してください</option></select>
             <p class="err">都道府県を選択してください</p>
-          </div>
-          <div class="field" data-req="value" data-name="date1">
-            <span class="q">第1希望日時<span class="req">必須</span></span>
-            <div class="two">
-              <input type="date" name="date1" id="date1" aria-label="第1希望日">
-              <select name="time1" aria-label="第1希望時間帯">
-                <option value="いつでも可">いつでも可</option><option>10:00〜12:00</option><option>12:00〜15:00</option><option>15:00〜18:00</option><option>18:00〜21:00</option>
-              </select>
-            </div>
-            <p class="err">第1希望日を選択してください</p>
-          </div>
-          <div class="field">
-            <span class="q">第2希望日時<span class="opt">任意</span></span>
-            <div class="two">
-              <input type="date" name="date2" id="date2" aria-label="第2希望日">
-              <select name="time2" aria-label="第2希望時間帯">
-                <option value="">ー</option><option>いつでも可</option><option>10:00〜12:00</option><option>12:00〜15:00</option><option>15:00〜18:00</option><option>18:00〜21:00</option>
-              </select>
-            </div>
           </div>
           <div class="nav"><button type="button" class="btn-back" data-back>戻る</button><button type="button" class="cta-btn" data-next>次へ進む →</button></div>
         </div>
 
         <!-- STEP 3 -->
         <div class="step" data-step="3">
+          <div class="field" data-req="radio" data-name="income">
+            <span class="q">年収（税込）<span class="req">必須</span></span>
+            <p class="note-s">ご提案内容の参考にするためにお伺いしています</p>
+            <div class="opts">
+              <input type="radio" name="income" id="i1" value="500万円未満"><label for="i1">500万円未満</label>
+              <input type="radio" name="income" id="i2" value="500〜700万円"><label for="i2">500〜700万円</label>
+              <input type="radio" name="income" id="i3" value="700〜1000万円"><label for="i3">700〜1000万円</label>
+              <input type="radio" name="income" id="i4" value="1000万円以上"><label for="i4">1000万円以上</label>
+            </div>
+            <p class="err">年収を選択してください</p>
+          </div>
           <div class="field" data-req="value" data-name="name">
             <label for="name">お名前<span class="req">必須</span></label>
             <input type="text" name="name" id="name" autocomplete="name" placeholder="山田 花子">
             <p class="err">お名前を入力してください</p>
-          </div>
-          <div class="field" data-req="value" data-name="kana">
-            <label for="kana">フリガナ<span class="req">必須</span></label>
-            <input type="text" name="kana" id="kana" placeholder="ヤマダ ハナコ">
-            <p class="err">フリガナを入力してください</p>
           </div>
           <div class="field" data-req="tel" data-name="tel">
             <label for="tel">電話番号<span class="req">必須</span></label>
@@ -593,9 +594,15 @@
   prefs.forEach(function(p){var o=document.createElement('option');o.value=p;o.textContent=p;sel.appendChild(o);});
 
   /* 希望日は明日以降 */
-  var t=new Date();t.setDate(t.getDate()+1);
-  var min=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
-  document.getElementById('date1').min=min;document.getElementById('date2').min=min;
+  var dsel=document.getElementById('date1'),wd='日月火水木金土';
+  for(var i=1;i<=14;i++){var d=new Date();d.setDate(d.getDate()+i);
+    var lab=(d.getMonth()+1)+'/'+d.getDate()+'（'+wd[d.getDay()]+'）';
+    var o=document.createElement('option');o.value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+lab;o.textContent=lab;dsel.appendChild(o);}
+
+  /* 計測（Metaのカスタムイベント） */
+  var sent={};
+  function ev(n,once){ if(once&&sent[n])return; sent[n]=1; try{ if(window.fbq) fbq('trackCustom',n); }catch(e){} }
+
 
   /* 流入元（広告のURLパラメータ） */
   document.getElementById('source').value=(location.search||'').slice(1,300);
@@ -605,6 +612,7 @@
   var steps=form.querySelectorAll('.step');
   var bars=document.querySelectorAll('.progress i');
   var labels=['あなたについて','面談のご希望','ご連絡先'];
+  var formSec=document.getElementById('form');
   var current=1;
 
   function validate(stepEl){
@@ -633,7 +641,7 @@
     document.getElementById('form').scrollIntoView({behavior:'smooth'});
   }
   form.addEventListener('click',function(e){
-    if(e.target.matches('[data-next]')){ if(validate(steps[current-1])) go(current+1); }
+    if(e.target.matches('[data-next]')){ if(validate(steps[current-1])){ go(current+1); ev('FormStep'+current,true); } }
     if(e.target.matches('[data-back]')){ go(current-1); }
   });
   form.addEventListener('change',function(e){
@@ -644,6 +652,7 @@
   /* 送信 */
   form.addEventListener('submit',function(e){
     e.preventDefault();
+    ev('FormSubmitClick',true);
     if(!validate(steps[2])) return;
     var endpoint=(window.SITE_CONFIG||{}).GAS_ENDPOINT;
     var btn=document.getElementById('submitBtn');
@@ -663,10 +672,22 @@
       });
   });
 
+  /* ヒーローの職業ボタン */
+  document.querySelectorAll('.qb').forEach(function(b){
+    b.addEventListener('click',function(){
+      var j=b.dataset.job;
+      if(j){var r=form.querySelector('input[name="job"][value="'+j+'"]'); if(r){r.checked=true; r.closest('.field').classList.remove('invalid');}}
+      ev('HeroJobTap',true);
+      formSec.scrollIntoView({behavior:'smooth'});
+    });
+  });
+  /* フォームの最初の操作 */
+  form.addEventListener('change',function(){ev('FormStart',true);},{once:true});
+
   /* 追従バー：フォーム表示中は隠す */
   var sticky=document.getElementById('sticky');
   if('IntersectionObserver' in window){
-    new IntersectionObserver(function(en){sticky.classList.toggle('hide',en[0].isIntersecting);},{threshold:.05})
+    new IntersectionObserver(function(en){sticky.classList.toggle('hide',en[0].isIntersecting); if(en[0].isIntersecting) ev('FormView',true);},{threshold:.05})
       .observe(document.getElementById('form'));
   }
 })();
